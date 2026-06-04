@@ -1,0 +1,40 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "fill" : {
+            "solid" : "display-p3:0.87476,0.82313,0.87765,1.00000"
+          },
+          "image-name" : "bring_your_own_ip_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg",
+          "name" : "bring_your_own_ip_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24",
+          "position" : {
+            "scale" : 35,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
