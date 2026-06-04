@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Locale - macOS hosts context switching</title>
+    <meta name="description" content="Locale is a native macOS utility for switching named /etc/hosts contexts safely.">
+    <meta name="theme-color" content="#111215">
+    <meta property="og:title" content="Locale">
+    <meta property="og:description" content="Switch named /etc/hosts contexts on macOS without hand-editing system files.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" aria-label="Site header">
+      <a class="brand" href="#top" aria-label="Locale home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Locale</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#safety">Safety</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/offyotto/Locale">GitHub</a>
+      </nav>
+      <a class="header-download" href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+        Download
+      </a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-background" aria-hidden="true">
+          <div class="product-window">
+            <div class="window-sidebar">
+              <div class="traffic-lights">
+                <span class="red"></span>
+                <span class="yellow"></span>
+                <span class="green"></span>
+              </div>
+              <div class="search-pill">Search contexts, hosts...</div>
+              <p class="side-label">Contexts</p>
+              <div class="context-row active"><span class="dot green"></span><span>Home</span></div>
+              <div class="context-row selected"><span class="dot blue"></span><span>Client VPN</span><b>3 hosts</b></div>
+              <div class="context-row"><span class="dot amber"></span><span>Local API</span><b>2 hosts</b></div>
+              <div class="context-row"><span class="dot pink"></span><span>Lab Network</span><b>5 hosts</b></div>
+              <div class="new-context">+ New Context</div>
+            </div>
+            <div class="window-main">
+              <div class="window-title">
+                <span class="status-dot"></span>
+                <h2>Client VPN</h2>
+                <span class="active-badge">Active</span>
+              </div>
+              <div class="stats">
+                <div><strong>3</strong><span>Entries</span></div>
+                <div><strong>3</strong><span>Active</span></div>
+                <div><strong>0</strong><span>Disabled</span></div>
+              </div>
+              <div class="tabs"><span class="current">Hosts</span><span>Settings</span></div>
+              <div class="info-line">Locale writes enabled entries to its managed block in /etc/hosts.</div>
+              <div class="host-table">
+                <div class="table-head"><span>IP Address</span><span>Hostname</span><span>Note</span></div>
+                <div class="host-row"><code>10.8.0.12</code><strong>api.client.local</strong><span>VPN API</span></div>
+                <div class="host-row"><code>10.8.0.23</code><strong>db.client.local</strong><span>Database</span></div>
+                <div class="host-row"><code>127.0.0.1</code><strong>local.test</strong><span>Local dev</span></div>
+              </div>
+              <div class="apply-bar"><span>Client VPN is active</span><button>Active Context</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <p class="eyebrow">Native macOS utility</p>
+          <h1 id="hero-title">Locale</h1>
+          <p class="hero-copy">Switch named <code>/etc/hosts</code> contexts without hand-editing system files or losing track of what is active.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+              Download for macOS
+            </a>
+            <a class="button secondary" href="https://github.com/offyotto/Locale">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 7h10v10M17 7 6 18"/></svg>
+              View source
+            </a>
+          </div>
+          <div class="proof-strip" aria-label="Distribution and privacy notes">
+            <span>Developer ID notarized</span>
+            <span>No telemetry</span>
+            <span>Local-first</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="Product summary">
+        <div class="wrap intro-grid">
+          <p>Built for the moments when <code>api.local</code>, a VPN hostname, or a temporary lab mapping needs to resolve now, without turning your hosts file into a mystery novel.</p>
+          <dl>
+            <div><dt>Managed</dt><dd>Only Locale's block is replaced.</dd></div>
+            <div><dt>Backed up</dt><dd>A hosts backup is written before every apply.</dd></div>
+            <div><dt>Fast</dt><dd>Switch from the app or menu bar.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="section" id="features" aria-labelledby="features-title">
+        <div class="wrap">
+          <p class="section-kicker">Features</p>
+          <h2 id="features-title">For people who keep moving between networks.</h2>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon blue">01</span>
+              <h3>Named contexts</h3>
+              <p>Create contexts for client VPNs, local APIs, lab networks, and short-lived debug setups.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon green">02</span>
+              <h3>Safe hosts apply</h3>
+              <p>Enabled entries are written through macOS administrator authorization, then DNS cache is flushed.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon amber">03</span>
+              <h3>Automatic backups</h3>
+              <p>Locale stores a backup before every write so you can inspect or recover previous hosts content.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon pink">04</span>
+              <h3>Menu bar switching</h3>
+              <p>Keep context switching one click away without opening the main window.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon gray">05</span>
+              <h3>Import and export</h3>
+              <p>Move contexts between Macs or keep a JSON backup alongside project notes.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon teal">06</span>
+              <h3>Local by design</h3>
+              <p>No telemetry, accounts, analytics, sync service, or cloud dependency.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section safety-section" id="safety" aria-labelledby="safety-title">
+        <div class="wrap safety-layout">
+          <div>
+            <p class="section-kicker">Safety model</p>
+            <h2 id="safety-title">It edits the hosts file like a careful guest.</h2>
+            <p>Locale never rewrites your whole <code>/etc/hosts</code> file. It removes and replaces only its own marked block, leaving everything else alone.</p>
+          </div>
+          <div class="code-panel" aria-label="Managed hosts block example">
+            <pre><code># BEGIN LOCALE MANAGED HOSTS
+10.8.0.12   api.client.local
+10.8.0.23   db.client.local
+127.0.0.1   local.test
+# END LOCALE MANAGED HOSTS</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section install-section" id="install" aria-labelledby="install-title">
+        <div class="wrap install-layout">
+          <div>
+            <p class="section-kicker">Install</p>
+            <h2 id="install-title">Download, unzip, apply a context.</h2>
+            <p>Locale is distributed as a notarized Developer ID app because the core feature needs privileged hosts-file writes.</p>
+            <div class="install-actions">
+              <a class="button primary" href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg>
+                Download Locale
+              </a>
+              <a class="button secondary" href="https://github.com/offyotto/Locale/releases/tag/v1.0.0">Release notes</a>
+            </div>
+          </div>
+          <ol class="install-steps">
+            <li><span>1</span><p>Download <strong>Locale-notarized.zip</strong> from GitHub Releases.</p></li>
+            <li><span>2</span><p>Open <strong>Locale.app</strong> and create your first context.</p></li>
+            <li><span>3</span><p>Add host entries, then apply with macOS administrator authorization.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section app-store-note" aria-labelledby="store-title">
+        <div class="wrap note-layout">
+          <h2 id="store-title">Why not the Mac App Store?</h2>
+          <p>Locale needs privileged access to update <code>/etc/hosts</code>. That makes Developer ID notarized distribution the honest fit for the real app, while keeping Gatekeeper validation intact.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <a class="brand" href="#top" aria-label="Locale home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Locale</span>
+        </a>
+        <p>No telemetry. No accounts. Just a careful hosts-context switcher for macOS.</p>
+        <div class="footer-links">
+          <a href="https://github.com/offyotto/Locale">GitHub</a>
+          <a href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip">Download</a>
+          <span>&copy; <span id="year">2026</span> Nazish Faizan</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

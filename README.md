@@ -16,6 +16,11 @@ before every apply, and flushes the local DNS cache after a successful write.
 - Import and export contexts as JSON.
 - Use an adaptive macOS app icon compiled from `Assets/AppIcon.icon`.
 
+## Website
+
+The marketing site lives in `website/` and is deployed with GitHub Pages from
+`.github/workflows/pages.yml`.
+
 ## Safety Model
 
 Locale never rewrites arbitrary parts of `/etc/hosts`. It removes and replaces
