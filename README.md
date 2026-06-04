@@ -59,32 +59,3 @@ The app bundle is written to:
 ```text
 dist/Locale.app
 ```
-
-## Package And Notarize
-
-Install a `Developer ID Application` certificate, then store notary credentials:
-
-```bash
-xcrun notarytool store-credentials LocaleNotary \
-  --apple-id "$APPLE_ID" \
-  --team-id 6VDP675K4L \
-  --password "$APP_SPECIFIC_PASSWORD"
-```
-
-Then package:
-
-```bash
-TEAM_ID=6VDP675K4L ./script/package_notarized.sh
-```
-
-The notarized ZIP is written to:
-
-```text
-dist/Locale-notarized.zip
-```
-
-## Development Notes
-
-- `Package.swift` is the source of truth for opening the app in Xcode.
-- Generated app bundles, ZIPs, icon build products, and SwiftPM build outputs are ignored.
-- No telemetry or analytics are included.
