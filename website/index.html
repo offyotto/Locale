@@ -165,29 +165,6 @@
     pointer-events: none;
   }
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--green);
-    background: var(--green-dim);
-    border: 1px solid var(--green-border);
-    padding: 5px 12px;
-    border-radius: 20px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-  }
-
-  .hero-badge-dot {
-    width: 5px; height: 5px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.8); }
@@ -1187,10 +1164,6 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-badge">
-    <div class="hero-badge-dot"></div>
-    macOS · Direct download
-  </div>
   <h1 class="hero-title">
     Switch network contexts<br><em>without touching a terminal</em>
   </h1>
@@ -1209,8 +1182,6 @@
   <div class="hero-meta">
     <span>macOS 14+</span>
     <span>Apple Silicon &amp; Intel</span>
-    <span>No subscription</span>
-    <span>No telemetry</span>
   </div>
 </section>
 
@@ -1527,9 +1498,9 @@
 <!-- INSTALL -->
 <section class="section" id="install">
   <p class="section-label reveal">Install</p>
-  <h2 class="section-title reveal">Direct download.<br>No account.</h2>
+  <h2 class="section-title reveal">Download Locale.</h2>
   <p class="section-body reveal">
-    Locale is a notarized macOS app. Direct download from GitHub Releases or build from source. No App Store, no subscription, no telemetry.
+    Locale is a notarized macOS app. Download it from GitHub Releases or build it from source.
   </p>
 
   <div class="install-block reveal">
@@ -1573,11 +1544,11 @@
       </div>
     </div>
     <div style="background:var(--bg);padding:20px 22px;">
-      <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">Privacy</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">Data</div>
       <div style="font-size:13px;color:var(--text2);line-height:2;font-family:var(--mono)">
-        No analytics or telemetry<br>
-        No network requests<br>
-        All data stored locally
+        Contexts stay on this Mac<br>
+        Changes are previewed before apply<br>
+        Source available on GitHub
       </div>
     </div>
   </div>
