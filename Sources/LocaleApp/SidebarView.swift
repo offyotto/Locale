@@ -92,6 +92,8 @@ struct SidebarContextRow: View {
 
     @State private var isActivePulse = false
 
+    @EnvironmentObject var store: LocaleStore
+
     var body: some View {
         Button(action: onSelect) {
             HStack(spacing: 9) {
@@ -159,10 +161,11 @@ struct SidebarContextRow: View {
             if context.isActive { isActivePulse = true }
         }
         .contextMenu {
-            Button("Activate") {}
-            Button("Duplicate") {}
+            Button("Activate") { store.activateContext(context) }
+            Button("Duplicate") { store.duplicateContext(context) }
             Divider()
-            Button("Delete", role: .destructive) {}
+            Button("Delete", role: .destructive) { store.deleteContext(context) }
+                .disabled(context.id == NetworkContext.homeContextID)
         }
     }
 }
