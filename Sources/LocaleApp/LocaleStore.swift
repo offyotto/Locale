@@ -151,6 +151,11 @@ final class LocaleStore: ObservableObject {
         copy.isActive = false
         copy.lastActivated = nil
         copy.createdAt = Date()
+        copy.hosts = context.hosts.map { host in
+            var newHost = host
+            newHost.id = UUID()
+            return newHost
+        }
         if let idx = contexts.firstIndex(where: { $0.id == context.id }) {
             contexts.insert(copy, at: idx + 1)
         } else {
