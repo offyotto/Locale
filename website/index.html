@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="assets/app-icon-dark.png?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Berkeley+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -31,8 +31,9 @@
     --green-border: rgba(74,222,128,0.2);
     --blue: #60a5fa;
     --blue-dim: rgba(96,165,250,0.1);
-    --mono: 'Berkeley Mono', 'Fira Code', monospace;
-    --sans: 'DM Sans', system-ui, sans-serif;
+    --site-font: 'DM Sans', system-ui, sans-serif;
+    --mono: var(--site-font);
+    --sans: var(--site-font);
   }
 
   html { scroll-behavior: smooth; }
