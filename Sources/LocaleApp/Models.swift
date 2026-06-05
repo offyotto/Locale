@@ -68,8 +68,10 @@ struct NetworkContext: Identifiable, Codable, Equatable, Sendable {
     var activeHostCount: Int { hosts.filter(\.isEnabled).count }
     var disabledHostCount: Int { hosts.filter { !$0.isEnabled }.count }
 
+    static let homeContextID = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
+
     static let homeContext = NetworkContext(
-        id: UUID(),
+        id: homeContextID,
         name: "Home",
         color: .green,
         isActive: true,
