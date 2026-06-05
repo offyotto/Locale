@@ -31,5 +31,4 @@ Run the app locally with:
 
 ## Safety
 
-Locale edits `/etc/hosts`, so changes to `SystemApplyService` should be reviewed carefully. The app must preserve all content outside its managed block and keep creating backups before writes.
-
+Locale applies DNS mappings through a sandboxed DNS Proxy Network Extension. Changes to `SystemApplyService`, `DNSProxyController`, or `DNSProxyProvider` should be reviewed carefully. The app must not introduce direct `/etc/hosts` edits, privileged helpers, or `osascript` calls.
