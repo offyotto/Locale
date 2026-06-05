@@ -3,11 +3,13 @@ set -euo pipefail
 
 MODE="${1:-run}"
 PRODUCT_NAME="LocaleApp"
-HELPER_PRODUCT_NAME="LocaleHelper"
+DNS_PROXY_PRODUCT_NAME="LocaleDNSProxy"
 APP_NAME="Locale"
 BUNDLE_ID="dev.offyotto.Locale"
+DNS_PROXY_BUNDLE_ID="dev.offyotto.Locale.LocaleDNSProxy"
 DISPLAY_NAME="Locale"
 MIN_SYSTEM_VERSION="14.0"
+TEAM_ID="${TEAM_ID:-6VDP675K4L}"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_DIR="$ROOT_DIR/dist"
@@ -16,18 +18,21 @@ APP_CONTENTS="$APP_BUNDLE/Contents"
 APP_MACOS="$APP_CONTENTS/MacOS"
 APP_RESOURCES="$APP_CONTENTS/Resources"
 APP_LIBRARY="$APP_CONTENTS/Library"
-APP_LAUNCH_DAEMONS="$APP_LIBRARY/LaunchDaemons"
-APP_LAUNCH_SERVICES="$APP_LIBRARY/LaunchServices"
+APP_SYSTEM_EXTENSIONS="$APP_LIBRARY/SystemExtensions"
 APP_BINARY="$APP_MACOS/$PRODUCT_NAME"
-HELPER_BINARY="$APP_LAUNCH_SERVICES/$HELPER_PRODUCT_NAME"
+DNS_PROXY_BUNDLE="$APP_SYSTEM_EXTENSIONS/$DNS_PROXY_BUNDLE_ID.systemextension"
+DNS_PROXY_CONTENTS="$DNS_PROXY_BUNDLE/Contents"
+DNS_PROXY_MACOS="$DNS_PROXY_CONTENTS/MacOS"
+DNS_PROXY_BINARY="$DNS_PROXY_MACOS/$DNS_PROXY_PRODUCT_NAME"
+DNS_PROXY_INFO_PLIST="$DNS_PROXY_CONTENTS/Info.plist"
 INFO_PLIST="$APP_CONTENTS/Info.plist"
 ICON_SOURCE="$ROOT_DIR/Assets/AppIcon.icon"
 ICON_BUILD_DIR="$ROOT_DIR/Resources/IconBuild"
 APP_ICON="$ROOT_DIR/Resources/AppIcon.icns"
 ASSETS_CAR="$ROOT_DIR/Resources/Assets.car"
 PARTIAL_INFO_PLIST="$ROOT_DIR/Resources/IconPartialInfo.plist"
-HELPER_PLIST="$ROOT_DIR/Resources/dev.offyotto.Locale.Helper.plist"
 APP_ENTITLEMENTS="$ROOT_DIR/Resources/Locale.entitlements"
+DNS_PROXY_ENTITLEMENTS="$ROOT_DIR/Resources/LocaleDNSProxy.entitlements"
 
 build_app_icon() {
   if [[ ! -d "$ICON_SOURCE" ]]; then
@@ -57,16 +62,15 @@ pkill -x "$PRODUCT_NAME" >/dev/null 2>&1 || true
 swift build -c release
 BUILD_DIR="$(swift build -c release --show-bin-path)"
 BUILD_BINARY="$BUILD_DIR/$PRODUCT_NAME"
-BUILD_HELPER_BINARY="$BUILD_DIR/$HELPER_PRODUCT_NAME"
+BUILD_DNS_PROXY_BINARY="$BUILD_DIR/$DNS_PROXY_PRODUCT_NAME"
 build_app_icon
 
 rm -rf "$APP_BUNDLE"
-mkdir -p "$APP_MACOS" "$APP_RESOURCES" "$APP_LAUNCH_DAEMONS" "$APP_LAUNCH_SERVICES"
+mkdir -p "$APP_MACOS" "$APP_RESOURCES" "$DNS_PROXY_MACOS"
 cp "$BUILD_BINARY" "$APP_BINARY"
 chmod +x "$APP_BINARY"
-cp "$BUILD_HELPER_BINARY" "$HELPER_BINARY"
-chmod +x "$HELPER_BINARY"
-cp "$HELPER_PLIST" "$APP_LAUNCH_DAEMONS/$(basename "$HELPER_PLIST")"
+cp "$BUILD_DNS_PROXY_BINARY" "$DNS_PROXY_BINARY"
+chmod +x "$DNS_PROXY_BINARY"
 cp "$APP_ICON" "$APP_RESOURCES/AppIcon.icns"
 cp "$ASSETS_CAR" "$APP_RESOURCES/Assets.car"
 
@@ -103,7 +107,44 @@ cat >"$INFO_PLIST" <<PLIST
 </plist>
 PLIST
 
-codesign --force --sign - --identifier "dev.offyotto.Locale.Helper" "$HELPER_BINARY" >/dev/null
+cat >"$DNS_PROXY_INFO_PLIST" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleExecutable</key>
+  <string>$DNS_PROXY_PRODUCT_NAME</string>
+  <key>CFBundleIdentifier</key>
+  <string>$DNS_PROXY_BUNDLE_ID</string>
+  <key>CFBundleName</key>
+  <string>$DNS_PROXY_PRODUCT_NAME</string>
+  <key>CFBundleDisplayName</key>
+  <string>Locale DNS Proxy</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.0</string>
+  <key>CFBundleVersion</key>
+  <string>20260603.2</string>
+  <key>CFBundlePackageType</key>
+  <string>SYSX</string>
+  <key>LSMinimumSystemVersion</key>
+  <string>$MIN_SYSTEM_VERSION</string>
+  <key>NetworkExtension</key>
+  <dict>
+    <key>NEProviderClasses</key>
+    <dict>
+      <key>com.apple.networkextension.dns-proxy</key>
+      <string>LocaleDNSProxy.DNSProxyProvider</string>
+    </dict>
+    <key>NEMachServiceName</key>
+    <string>$TEAM_ID.$DNS_PROXY_BUNDLE_ID</string>
+  </dict>
+  <key>NSSystemExtensionUsageDescription</key>
+  <string>Locale uses a DNS proxy system extension to switch local hostname mappings without editing system files.</string>
+</dict>
+</plist>
+PLIST
+
+codesign --force --sign - --identifier "$DNS_PROXY_BUNDLE_ID" --entitlements "$DNS_PROXY_ENTITLEMENTS" "$DNS_PROXY_BUNDLE" >/dev/null
 codesign --force --sign - --entitlements "$APP_ENTITLEMENTS" "$APP_BUNDLE" >/dev/null
 
 open_app() {

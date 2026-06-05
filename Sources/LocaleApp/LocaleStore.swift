@@ -101,7 +101,7 @@ final class LocaleStore: ObservableObject {
                 }
                 saveToDisk()
                 isApplying = false
-                showToast(successMessage ?? "✓ \(contextName) activated · \(activeHostCount) hosts applied", type: .success)
+                showToast(successMessage ?? "✓ \(contextName) activated · \(activeHostCount) DNS mappings active", type: .success)
 
             case .failure(let error):
                 isApplying = false
@@ -111,7 +111,37 @@ final class LocaleStore: ObservableObject {
     }
 
     func deactivateAll() {
-        activateContext(homeContext, successMessage: "Reverted to Home context · Locale hosts removed")
+        guard !isApplying else { return }
+        isApplying = true
+        let homeID = homeContext.id
+
+        Task {
+            let result: Result<Void, Error> = await Task.detached(priority: .userInitiated) {
+                do {
+                    try await SystemApplyService.clearDNSMappings()
+                    return .success(())
+                } catch {
+                    return .failure(error)
+                }
+            }.value
+
+            switch result {
+            case .success:
+                for idx in contexts.indices {
+                    contexts[idx].isActive = (contexts[idx].id == homeID)
+                }
+                if let idx = contexts.firstIndex(where: { $0.id == homeID }) {
+                    contexts[idx].lastActivated = Date()
+                }
+                saveToDisk()
+                isApplying = false
+                showToast("Reverted to Home context · Locale DNS mappings cleared", type: .success)
+
+            case .failure(let error):
+                isApplying = false
+                showToast("Revert failed: \(error.localizedDescription)", type: .error)
+            }
+        }
     }
 
     func duplicateContext(_ context: NetworkContext) {

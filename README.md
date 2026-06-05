@@ -1,17 +1,17 @@
 # Locale
 
-Locale is a macOS utility for switching between named `/etc/hosts` contexts.
+Locale is a native macOS utility for switching named DNS contexts.
 
 It is built with SwiftUI and Swift Package Manager. Locale stores contexts
-locally, writes only its own managed block in `/etc/hosts`, creates backups
-before every apply, and flushes the local DNS cache after a successful write.
+locally, applies the active host mappings through a sandboxed DNS Proxy Network
+Extension, and leaves system host files untouched.
 
 ## Features
 
-- Create named hosts contexts for local development, VPNs, labs, and temporary debugging.
-- Add, disable, and remove host entries per context.
-- Apply a context through Locale's bundled privileged helper.
-- Revert to a clean `Home` context to remove Locale-managed hosts.
+- Create named DNS contexts for local development, VPNs, labs, and temporary debugging.
+- Add, disable, and remove host mappings per context.
+- Apply a context through Locale's bundled `NEDNSProxyProvider` system extension.
+- Revert to a clean `Home` context to clear Locale-managed DNS mappings.
 - Switch active contexts from the menu bar.
 - Import and export contexts as JSON.
 - Use an adaptive macOS app icon compiled from `Assets/AppIcon.icon`.
@@ -21,39 +21,24 @@ before every apply, and flushes the local DNS cache after a successful write.
 The marketing site lives in `website/` and is deployed with GitHub Pages from
 `.github/workflows/pages.yml`.
 
-## Safety Model
+## Architecture
 
-Locale never rewrites arbitrary parts of `/etc/hosts`. It removes and replaces
-only this managed block:
+Locale uses a sandboxed main app plus a bundled DNS Proxy Network Extension:
 
-```text
-# BEGIN LOCALE MANAGED HOSTS
-...
-# END LOCALE MANAGED HOSTS
-```
+- Main app writes the active context to the shared App Group defaults.
+- `LocaleDNSProxy` reads the same App Group data.
+- Matching DNS questions receive the configured IP address.
+- Unmatched DNS traffic is forwarded to the system DNS servers.
 
-Everything outside that block is preserved. Before each apply, Locale saves a
-backup under:
-
-```text
-~/Library/Application Support/Locale/HostsBackups
-```
-
-## Current Scope
-
-Locale currently applies hosts entries only. It does not change macOS network
-service DNS settings yet.
-
-Locale uses a sandboxed main app plus a bundled `SMAppService` launch daemon.
-The helper is approved once by an admin, then receives only complete hosts-file
-payloads over XPC. Production builds must be signed and notarized for the helper
-to register successfully.
+The app does not use `osascript`, a privileged helper, or direct `/etc/hosts`
+writes.
 
 ## Requirements
 
 - macOS 14 or newer
 - Xcode command line tools
-- Swift 6 toolchain
+- Swift toolchain with SwiftPM
+- Apple Developer capabilities for App Groups, System Extensions, and DNS Proxy Network Extension when signing for distribution
 
 ## Build And Run
 

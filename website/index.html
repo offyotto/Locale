@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Locale — macOS Network Context Manager</title>
-<meta name="description" content="Locale is a native macOS utility for switching named /etc/hosts contexts safely.">
+<meta name="description" content="Locale is a native macOS utility for switching named DNS contexts safely.">
 <meta name="theme-color" content="#1a1714">
 <meta property="og:title" content="Locale">
-<meta property="og:description" content="Switch named /etc/hosts contexts on macOS without hand-editing system files.">
+<meta property="og:description" content="Switch named DNS contexts on macOS without hand-editing system files.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/app-icon-dark.png?v=6" type="image/png" sizes="1024x1024">
 <link rel="apple-touch-icon" href="assets/app-icon-dark.png?v=6">
@@ -815,7 +815,7 @@
     Switch network contexts<br><em>without touching a terminal</em>
   </h1>
   <p class="hero-sub">
-    Named sets of /etc/hosts entries. One click to activate. Your system entries stay safe.
+    Named DNS mappings. One click to activate. System files stay untouched.
   </p>
   <div class="hero-actions">
     <a href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip" class="btn-primary">
@@ -850,7 +850,7 @@
   <p class="section-label reveal">How it works</p>
   <h2 class="section-title reveal">Context switch.<br>No friction.</h2>
   <p class="section-body reveal">
-    Each context holds a named list of hosts entries. Activating one writes Locale's managed block to /etc/hosts through its approved helper, then lets you switch or revert without losing your own entries.
+    Each context holds a named list of host mappings. Activating one updates Locale's DNS proxy so matching requests resolve to your chosen IPs while everything else keeps using the normal resolver.
   </p>
 
   <div class="how-grid">
@@ -873,7 +873,7 @@
         <span class="how-step-n">03</span>
         <div class="how-step-content">
           <div class="how-step-title">Apply Context</div>
-          <div class="how-step-desc">One click after helper approval. Locale backs up your hosts file, updates only its managed block, and flushes the DNS cache.</div>
+          <div class="how-step-desc">One click after system extension approval. Locale updates its DNS proxy configuration without touching host files.</div>
         </div>
       </div>
       <div class="how-step" data-delay="300">
@@ -886,21 +886,19 @@
     </div>
 
     <div class="how-code reveal">
-      <div class="how-code-label">Work VPN context · /etc/hosts output</div>
+      <div class="how-code-label">Work VPN context · DNS proxy answers</div>
       <div class="code-block">
         <div><span class="code-comment"># Locale: Work VPN (active)</span></div>
-        <div><span class="code-comment"># System entries preserved below</span></div>
+        <div><span class="code-comment"># Matching questions answered locally</span></div>
         <div>&nbsp;</div>
-        <div><span class="code-ip">127.0.0.1</span>  <span class="code-host">api.company.internal</span></div>
-        <div><span class="code-ip">10.0.1.42</span>  <span class="code-host">db.internal</span></div>
-        <div><span class="code-ip">10.0.1.10</span>  <span class="code-host">redis.internal</span></div>
-        <div><span class="code-comment"># 10.0.2.88  legacy-auth  (disabled)</span></div>
-        <div><span class="code-ip">10.0.1.75</span>  <span class="code-host">logs.company.internal</span></div>
-        <div><span class="code-ip">192.168.1.1</span> <span class="code-host">router.local</span></div>
+        <div><span class="code-host">api.company.internal</span>  <span class="code-comment">A</span>  <span class="code-ip">127.0.0.1</span></div>
+        <div><span class="code-host">db.internal</span>           <span class="code-comment">A</span>  <span class="code-ip">10.0.1.42</span></div>
+        <div><span class="code-host">redis.internal</span>        <span class="code-comment">A</span>  <span class="code-ip">10.0.1.10</span></div>
+        <div><span class="code-comment"># legacy-auth is disabled</span></div>
+        <div><span class="code-host">logs.company.internal</span> <span class="code-comment">A</span>  <span class="code-ip">10.0.1.75</span></div>
+        <div><span class="code-host">router.local</span>          <span class="code-comment">A</span>  <span class="code-ip">192.168.1.1</span></div>
         <div>&nbsp;</div>
-        <div><span class="code-comment"># — system entries —</span></div>
-        <div><span class="code-ip">127.0.0.1</span>  <span class="code-host">localhost</span></div>
-        <div><span class="code-ip">::1</span>        <span class="code-host">localhost</span></div>
+        <div><span class="code-comment"># All other DNS is forwarded unchanged</span></div>
       </div>
     </div>
   </div>
@@ -960,8 +958,8 @@
       <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
       </svg>
-      <div class="feature-title">System entries preserved</div>
-      <div class="feature-desc">Your original /etc/hosts is backed up. Revert restores it exactly as it was.</div>
+      <div class="feature-title">System files untouched</div>
+      <div class="feature-desc">Locale applies contexts at DNS resolution time through a sandboxed Network Extension.</div>
     </div>
   </div>
 
@@ -990,23 +988,23 @@
   <p class="section-label reveal" style="margin-bottom:16px">Safety model</p>
   <div class="dns-row reveal">
     <div class="dns-cell">
-      <div class="dns-cell-name">Managed block</div>
-      <div class="dns-addr">Only Locale's section changes</div>
+      <div class="dns-cell-name">DNS proxy</div>
+      <div class="dns-addr">Only matching hostnames resolve locally</div>
     </div>
     <div class="dns-cell selected">
       <div class="dns-cell-name">
-        Backup
+        App Group
         <span class="dns-check">✓</span>
       </div>
-      <div class="dns-addr">Saved before every apply</div>
+      <div class="dns-addr">Main app and extension share active mappings</div>
     </div>
     <div class="dns-cell">
-      <div class="dns-cell-name">Flush cache</div>
-      <div class="dns-addr">Applies take effect quickly</div>
+      <div class="dns-cell-name">Forwarding</div>
+      <div class="dns-addr">Unmatched queries use normal DNS</div>
     </div>
     <div class="dns-cell">
       <div class="dns-cell-name">Revert</div>
-      <div class="dns-addr">Return to clean Home</div>
+      <div class="dns-addr">Clear Locale mappings</div>
     </div>
   </div>
 
@@ -1075,7 +1073,7 @@
       <div style="font-size:13px;color:var(--text2);line-height:2;font-family:var(--mono)">
         macOS 14 Sonoma or later<br>
         Apple Silicon or Intel<br>
-        Helper approval for /etc/hosts writes
+        System extension approval on first launch
       </div>
     </div>
     <div style="background:var(--bg);padding:20px 22px;">

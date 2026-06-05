@@ -4,8 +4,6 @@
 <dict>
   <key>com.apple.security.app-sandbox</key>
   <true/>
-  <key>com.apple.security.files.user-selected.read-write</key>
-  <true/>
   <key>com.apple.security.application-groups</key>
   <array>
     <string>group.dev.offyotto.Locale</string>
@@ -14,7 +12,5 @@
   <array>
     <string>dns-proxy</string>
   </array>
-  <key>com.apple.developer.system-extension.install</key>
-  <true/>
 </dict>
 </plist>

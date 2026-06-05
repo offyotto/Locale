@@ -12,7 +12,7 @@ struct OnboardingView: View {
             iconColor: Color(red: 0.3, green: 0.55, blue: 0.95),
             title: "Welcome to Locale",
             subtitle: "macOS Network Context Manager",
-            description: "Locale lets you switch between named /etc/hosts configurations without editing system files by hand.",
+            description: "Locale lets you switch between named DNS contexts without editing system files by hand.",
             detail: nil
         ),
         OnboardingStep(
@@ -21,15 +21,15 @@ struct OnboardingView: View {
             title: "What are Contexts?",
             subtitle: "One context per environment",
             description: "A context is a named set of hosts entries for an environment such as a client VPN, local API, lab network, or temporary debug setup.",
-            detail: "Create as many contexts as you need. Locale preserves everything outside its own managed block in /etc/hosts."
+            detail: "Create as many contexts as you need. Locale keeps your mappings local and applies only the active context."
         ),
         OnboardingStep(
             icon: "doc.text",
             iconColor: Color(red: 0.95, green: 0.55, blue: 0.2),
             title: "Hosts Entries",
             subtitle: "IP to hostname mappings",
-            description: "Each context holds a list of IP to hostname mappings. When you activate a context, enabled entries are written to Locale's managed block in /etc/hosts.",
-            detail: "Locale asks you to approve its helper once, creates a backup before writing, and flushes the local DNS cache after a successful apply."
+            description: "Each context holds a list of IP to hostname mappings. When you activate a context, Locale answers matching DNS requests with those IPs.",
+            detail: "Locale uses a sandboxed DNS proxy extension, so switching contexts does not require root access or host-file edits."
         ),
         OnboardingStep(
             icon: "menubar.rectangle",
