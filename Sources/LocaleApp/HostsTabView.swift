@@ -34,7 +34,7 @@ struct HostsTabView: View {
                 Text("How it works:")
                     .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(.secondary)
-                Text("Locale writes these entries to /etc/hosts when this context is activated. Previous system entries are preserved and restored when you switch away.")
+                Text("Locale answers matching DNS requests from the active context and forwards everything else to your normal resolver.")
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
                     .lineLimit(2)

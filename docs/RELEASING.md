@@ -1,14 +1,17 @@
 # Releasing Locale
 
-Locale uses a sandboxed main app plus a bundled `SMAppService` launch daemon to
-update `/etc/hosts`. Launch daemon builds must be signed and notarized before the
-helper can register successfully.
+Locale ships a sandboxed macOS app with a bundled DNS Proxy Network Extension.
+Distribution builds must be signed with profiles that include:
+
+- App Groups: `group.dev.offyotto.Locale`
+- System Extension install
+- Network Extension: DNS Proxy
 
 ## Prerequisites
 
-- A `Developer ID Application` certificate in Keychain Access.
-- A saved notary profile named `LocaleNotary`.
-- The app bundle should live in `/Applications` when testing helper registration.
+- A `Developer ID Application` certificate in Keychain Access for direct distribution, or Mac App Store signing assets for App Store builds.
+- A saved notary profile named `LocaleNotary` for direct distribution.
+- Network Extension and System Extension capabilities enabled for the app identifiers in the Apple Developer portal.
 
 Create the notary profile with:
 
@@ -33,12 +36,19 @@ dist/Locale-notarized.zip
 
 It also validates the stapled app with `spctl` and `xcrun stapler validate`.
 
-## Privileged Helper Notes
+## Network Extension Notes
 
-The main app registers `Contents/Library/LaunchDaemons/dev.offyotto.Locale.Helper.plist`.
-That plist points at `Contents/Library/LaunchServices/LocaleHelper` using
-`BundleProgram`, so relocating the app after registration requires unregistering
-and registering the helper again.
+`LocaleDNSProxy` is staged as a system extension at:
 
-The helper only exposes one XPC method: apply a complete hosts-file payload. It
-validates the calling app signature before replacing `/private/etc/hosts`.
+```text
+Contents/Library/SystemExtensions/dev.offyotto.Locale.LocaleDNSProxy.systemextension
+```
+
+The extension starts with `NEProvider.startSystemExtensionMode()` and exposes a
+`NEDNSProxyProvider` class. The main app activates it with
+`OSSystemExtensionManager`, then configures `NEDNSProxyManager` to point at the
+extension bundle identifier.
+
+First launch may require the user to approve the system extension and DNS proxy
+configuration in System Settings. Context switching after approval does not use
+root privileges or edit system host files.

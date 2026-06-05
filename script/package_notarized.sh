@@ -8,8 +8,10 @@ NOTARY_PROFILE="${NOTARY_PROFILE:-LocaleNotary}"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_DIR="$ROOT_DIR/dist"
 APP_BUNDLE="$DIST_DIR/$APP_NAME.app"
-HELPER_BINARY="$APP_BUNDLE/Contents/Library/LaunchServices/LocaleHelper"
+DNS_PROXY_BUNDLE_ID="dev.offyotto.Locale.LocaleDNSProxy"
+DNS_PROXY_BUNDLE="$APP_BUNDLE/Contents/Library/SystemExtensions/$DNS_PROXY_BUNDLE_ID.systemextension"
 APP_ENTITLEMENTS="$ROOT_DIR/Resources/Locale.entitlements"
+DNS_PROXY_ENTITLEMENTS="$ROOT_DIR/Resources/LocaleDNSProxy.entitlements"
 SIGNED_ZIP="$DIST_DIR/$APP_NAME-signed.zip"
 NOTARIZED_ZIP="$DIST_DIR/$APP_NAME-notarized.zip"
 
@@ -39,7 +41,7 @@ fi
 cd "$ROOT_DIR"
 "$ROOT_DIR/script/build_and_run.sh" --build-only
 
-codesign --force --options runtime --timestamp --identifier "dev.offyotto.Locale.Helper" --sign "$IDENTITY" "$HELPER_BINARY"
+codesign --force --options runtime --timestamp --identifier "$DNS_PROXY_BUNDLE_ID" --entitlements "$DNS_PROXY_ENTITLEMENTS" --sign "$IDENTITY" "$DNS_PROXY_BUNDLE"
 codesign --force --options runtime --timestamp --entitlements "$APP_ENTITLEMENTS" --sign "$IDENTITY" "$APP_BUNDLE"
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
 

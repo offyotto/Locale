@@ -1,8 +1,11 @@
 # Security Policy
 
-Locale writes to `/etc/hosts` through a bundled `SMAppService` privileged helper.
-The main app talks to the helper over XPC and the helper only accepts requests
-from the Locale app signature.
+Locale applies host mappings through a sandboxed DNS Proxy Network Extension.
+The main app and extension communicate through the App Group
+`group.dev.offyotto.Locale`.
+
+Locale does not edit `/etc/hosts`, install a privileged helper, or run commands
+with elevated privileges.
 
 ## Reporting
 
@@ -12,19 +15,14 @@ Please report security issues privately to the repository owner instead of openi
 
 Security-sensitive areas include:
 
-- `/etc/hosts` parsing and writing
-- privileged helper registration and XPC validation
-- backup creation and restore behavior
+- DNS query parsing and response generation
+- DNS fallback forwarding for unmatched hostnames
+- App Group configuration storage
+- Network Extension activation and settings
 - hostname and IP validation
-- notarized release packaging
+- signed release packaging
 
 ## Expected Behavior
 
-Locale should only replace content between:
-
-```text
-# BEGIN LOCALE MANAGED HOSTS
-# END LOCALE MANAGED HOSTS
-```
-
-Everything outside that block must be preserved.
+When a context is active, Locale should answer only hostnames that match enabled
+entries in that context. Everything else should forward to the system resolver.

@@ -31,17 +31,17 @@ struct PreferencesView: View {
                     // Safety
                     PrefsSection(title: "Safety") {
                         PrefsInfoRow(
-                            label: "Managed Hosts Block",
+                            label: "DNS Proxy",
                             icon: "lock.shield",
-                            description: "Locale only replaces entries between its BEGIN/END markers in /etc/hosts."
+                            description: "Locale applies mappings through a sandboxed DNS proxy extension."
                         )
 
                         Divider().padding(.leading, 46).opacity(0.3)
 
                         PrefsInfoRow(
-                            label: "Automatic Backups",
-                            icon: "clock.arrow.circlepath",
-                            description: "Before every apply, Locale stores a backup in ~/Library/Application Support/Locale/HostsBackups."
+                            label: "System Files",
+                            icon: "doc.badge.gearshape",
+                            description: "Locale does not edit host files or require root privileges to switch contexts."
                         )
                     }
 
@@ -180,7 +180,7 @@ struct PreferencesView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This removes every saved context and returns Locale to a clean Home context. Your system /etc/hosts file is not changed until you apply Home.")
+            Text("This removes every saved context and returns Locale to a clean Home context. DNS settings are not changed until you apply Home.")
         }
     }
 }

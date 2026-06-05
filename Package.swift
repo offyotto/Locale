@@ -9,7 +9,7 @@ let package = Package(
     ],
     products: [
         .executable(name: "LocaleApp", targets: ["LocaleApp"]),
-        .executable(name: "LocaleHelper", targets: ["LocaleHelper"])
+        .executable(name: "LocaleDNSProxy", targets: ["LocaleDNSProxy"])
     ],
     targets: [
         .target(
@@ -24,16 +24,26 @@ let package = Package(
                 .unsafeFlags(["-Osize"], .when(configuration: .release))
             ],
             linkerSettings: [
-                .linkedFramework("ServiceManagement")
+                .linkedFramework("NetworkExtension"),
+                .linkedFramework("SystemExtensions")
             ]
         ),
         .executableTarget(
-            name: "LocaleHelper",
+            name: "LocaleDNSProxy",
             dependencies: ["LocaleShared"],
-            path: "Sources/LocaleHelper",
+            path: "Sources/LocaleDNSProxy",
             swiftSettings: [
                 .unsafeFlags(["-Osize"], .when(configuration: .release))
+            ],
+            linkerSettings: [
+                .linkedFramework("NetworkExtension")
             ]
+        ),
+        .testTarget(
+            name: "LocaleSharedTests",
+            dependencies: ["LocaleShared"],
+            path: "Tests/LocaleSharedTests"
         )
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )
