@@ -85,18 +85,11 @@
   .nav-icon svg { width: 12px; height: 12px; }
 
   .nav-icon img,
-  .mb-app-icon,
   .footer-icon {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-
-  .mb-app-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
   }
 
   .footer-icon {
@@ -145,12 +138,12 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
+    min-height: clamp(450px, 58vh, 600px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 120px 40px 80px;
+    padding: 72px 40px 24px;
     text-align: center;
     position: relative;
   }
@@ -191,7 +184,7 @@
     font-weight: 300;
     color: var(--text2);
     max-width: 480px;
-    margin: 0 auto 48px;
+    margin: 0 auto 30px;
     line-height: 1.65;
   }
 
@@ -199,7 +192,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 72px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -253,8 +246,8 @@
   /* APP SCREENSHOT */
   .screenshot-wrap {
     width: 100%;
-    max-width: 860px;
-    margin: 0 auto 120px;
+    max-width: 1120px;
+    margin: 0 auto 124px;
     padding: 0 40px;
     opacity: 0;
     transform: translateY(24px);
@@ -264,9 +257,9 @@
   .screenshot-wrap.visible { opacity: 1; transform: translateY(0); }
 
   .screenshot-frame {
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
     overflow: hidden;
     box-shadow:
       0 0 0 1px rgba(0,0,0,0.5),
@@ -274,288 +267,48 @@
       0 0 120px rgba(74,222,128,0.04);
   }
 
-  .screenshot-titlebar {
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .product-screenshot {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: brightness(1.16) contrast(1.04);
   }
 
-  .traffic-lights {
-    display: flex;
-    gap: 7px;
-  }
-
-  .tl {
-    width: 11px; height: 11px;
-    border-radius: 50%;
-  }
-
-  .tl-red { background: #ff5f57; }
-  .tl-yellow { background: #febc2e; }
-  .tl-green { background: #28c840; }
-
-  .titlebar-name {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text3);
-    margin-left: 8px;
-  }
-
-  /* APP MOCKUP */
-  .app-body {
+  .shot-grid {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    min-height: 440px;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: -28px 0 80px;
   }
 
-  .app-sidebar {
-    background: rgba(255,255,255,0.02);
-    border-right: 1px solid var(--border);
-    padding: 12px 0;
+  .shot-card {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 24px 54px rgba(0,0,0,0.34);
   }
 
-  .app-search {
-    margin: 0 10px 12px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 6px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  .shot-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: brightness(1.12) contrast(1.03);
   }
 
-  .app-search span {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
+  .shot-card figcaption {
+    border-top: 1px solid var(--border);
+    padding: 13px 16px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.45;
   }
 
-  .sidebar-section-label {
-    font-family: var(--mono);
-    font-size: 9.5px;
-    letter-spacing: 0.1em;
-    color: var(--text3);
-    padding: 8px 16px 4px;
-    text-transform: uppercase;
-  }
-
-  .ctx-row {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 6px 10px;
-    margin: 0 6px;
-    border-radius: 7px;
-    cursor: default;
-    transition: background 0.1s;
-  }
-
-  .ctx-row.active {
-    background: rgba(74,222,128,0.1);
-  }
-
-  .ctx-row:not(.active):hover { background: rgba(255,255,255,0.04); }
-
-  .ctx-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .ctx-name {
-    font-size: 12.5px;
-    color: var(--text);
-    flex: 1;
-  }
-
-  .ctx-name,
-  .host-ip,
-  .host-name,
-  .host-note,
-  .mb-row-left,
   .install-cmd-text {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  .ctx-row.active .ctx-name { font-weight: 500; }
-
-  .ctx-check {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--green);
-  }
-
-  .app-main {
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .app-context-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .app-ctx-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--blue);
-  }
-
-  .app-ctx-name {
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .active-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: var(--green);
-    background: var(--green-dim);
-    border: 1px solid var(--green-border);
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-
-  .active-badge-dot {
-    width: 5px; height: 5px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  .app-stats {
-    display: flex;
-    gap: 8px;
-  }
-
-  .stat-chip {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 8px 14px;
-    text-align: center;
-    min-width: 68px;
-  }
-
-  .stat-n {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .stat-label {
-    font-size: 10px;
-    color: var(--text3);
-    margin-top: 1px;
-  }
-
-  .host-table {
-    flex: 1;
-  }
-
-  .host-table-head {
-    display: grid;
-    grid-template-columns: 130px 1fr 140px;
-    padding: 5px 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 4px;
-  }
-
-  .host-table-head span {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text3);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .host-row {
-    display: grid;
-    grid-template-columns: 130px 1fr 140px;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-    align-items: center;
-  }
-
-  .host-ip {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--blue);
-  }
-
-  .host-ip.loopback { color: var(--green); }
-  .host-ip.disabled { color: var(--text3); }
-
-  .host-name {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--text);
-  }
-
-  .host-name.disabled {
-    color: var(--text3);
-    text-decoration: line-through;
-    text-decoration-color: var(--text3);
-  }
-
-  .host-note {
-    font-size: 11px;
-    color: var(--text3);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .off-pill {
-    font-family: var(--mono);
-    font-size: 9px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 3px;
-    padding: 1px 5px;
-    color: var(--text3);
-    letter-spacing: 0.05em;
-  }
-
-  .app-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 24px;
-    border-top: 1px solid var(--border);
-    background: rgba(255,255,255,0.01);
-  }
-
-  .app-status-text {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-  }
-
-  .apply-btn {
-    font-family: var(--mono);
-    font-size: 12px;
-    background: var(--blue);
-    color: #0a1628;
-    padding: 7px 16px;
-    border-radius: 6px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
   }
 
   /* FEATURES */
@@ -761,99 +514,27 @@
   .menubar-demo {
     display: flex;
     gap: 40px;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 100px;
   }
 
   .menubar-text { flex: 1; }
 
-  .menubar-mockup {
-    background: var(--bg2);
+  .menubar-shot {
     border: 1px solid var(--border2);
-    border-radius: 12px;
+    border-radius: 18px;
     overflow: hidden;
-    width: 220px;
+    width: 306px;
     flex-shrink: 0;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    background: var(--bg2);
+    box-shadow: 0 24px 54px rgba(0,0,0,0.38);
   }
 
-  .mb-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--border);
+  .menubar-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
-
-  .mb-header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  .mb-active-pill {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--green);
-    background: var(--green-dim);
-    border: 1px solid var(--green-border);
-    padding: 2px 8px;
-    border-radius: 10px;
-  }
-
-  .mb-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 7px 14px;
-    transition: background 0.1s;
-  }
-
-  .mb-row:hover { background: rgba(255,255,255,0.05); }
-
-  .mb-row-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12.5px;
-    color: var(--text);
-  }
-
-  .mb-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-  }
-
-  .mb-row-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .mb-check { font-family: var(--mono); font-size: 11px; color: var(--green); }
-  .mb-count { font-family: var(--mono); font-size: 10px; color: var(--text3); }
-
-  .mb-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 4px 0;
-  }
-
-  .mb-action {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 14px;
-    font-size: 12.5px;
-    color: var(--text2);
-    transition: background 0.1s;
-  }
-
-  .mb-action:hover { background: rgba(255,255,255,0.05); }
 
   /* INSTALL */
   .install-block {
@@ -981,7 +662,7 @@
       gap: 28px;
     }
 
-    .menubar-mockup {
+    .menubar-shot {
       width: min(100%, 320px);
     }
 
@@ -1039,48 +720,14 @@
       margin-bottom: 76px;
     }
 
-    .app-body {
+    .screenshot-frame {
+      border-radius: 12px;
+    }
+
+    .shot-grid {
       grid-template-columns: 1fr;
-      min-height: 390px;
-    }
-
-    .app-sidebar {
-      display: none;
-    }
-
-    .app-main {
-      padding: 18px;
-    }
-
-    .app-context-header {
-      flex-wrap: wrap;
-    }
-
-    .app-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .stat-chip {
-      min-width: 0;
-      padding: 8px;
-    }
-
-    .host-table-head,
-    .host-row {
-      grid-template-columns: 112px minmax(0, 1fr);
-    }
-
-    .host-table-head span:last-child,
-    .host-note {
-      display: none;
-    }
-
-    .app-bottom {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 10px;
-      padding: 12px 18px;
+      gap: 14px;
+      margin: -20px 0 60px;
     }
 
     .section {
@@ -1188,95 +835,13 @@
 <!-- SCREENSHOT -->
 <div class="screenshot-wrap" id="screenshot">
   <div class="screenshot-frame">
-    <div class="screenshot-titlebar">
-      <div class="traffic-lights">
-        <div class="tl tl-red"></div>
-        <div class="tl tl-yellow"></div>
-        <div class="tl tl-green"></div>
-      </div>
-      <span class="titlebar-name">Locale</span>
-    </div>
-    <div class="app-body">
-      <div class="app-sidebar">
-        <div class="app-search">
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.5" style="color: #5e5a54; flex-shrink:0;">
-            <circle cx="4.5" cy="4.5" r="3.5"/><path d="m7.5 7.5 2 2"/>
-          </svg>
-          <span>Search contexts, hosts…</span>
-        </div>
-        <div class="sidebar-section-label">Contexts</div>
-        <div class="ctx-row">
-          <div class="ctx-dot" style="background:#4ade80"></div>
-          <span class="ctx-name">Home</span>
-          <span class="ctx-check">✓</span>
-        </div>
-        <div class="ctx-row active">
-          <div class="ctx-dot" style="background:#60a5fa"></div>
-          <span class="ctx-name" style="font-weight:500">Work VPN</span>
-        </div>
-        <div class="ctx-row">
-          <div class="ctx-dot" style="background:#fb923c"></div>
-          <span class="ctx-name">Staging Dev</span>
-        </div>
-        <div class="ctx-row">
-          <div class="ctx-dot" style="background:#c084fc"></div>
-          <span class="ctx-name">Travel / Café</span>
-        </div>
-        <div class="ctx-row">
-          <div class="ctx-dot" style="background:#f87171"></div>
-          <span class="ctx-name">Production Debug</span>
-        </div>
-      </div>
-      <div class="app-main">
-        <div class="app-context-header">
-          <div class="app-ctx-dot"></div>
-          <span class="app-ctx-name">Work VPN</span>
-          <div class="active-badge">
-            <div class="active-badge-dot"></div>
-            Active
-          </div>
-        </div>
-        <div class="app-stats">
-          <div class="stat-chip"><div class="stat-n">6</div><div class="stat-label">Entries</div></div>
-          <div class="stat-chip"><div class="stat-n">5</div><div class="stat-label">Active</div></div>
-          <div class="stat-chip"><div class="stat-n">1</div><div class="stat-label">Disabled</div></div>
-        </div>
-        <div class="host-table">
-          <div class="host-table-head">
-            <span>IP Address</span><span>Hostname</span><span>Note</span>
-          </div>
-          <div class="host-row">
-            <span class="host-ip loopback">127.0.0.1</span>
-            <span class="host-name">api.company.internal</span>
-            <span class="host-note">Dev API gateway</span>
-          </div>
-          <div class="host-row">
-            <span class="host-ip">10.0.1.42</span>
-            <span class="host-name">db.internal</span>
-            <span class="host-note">Postgres primary</span>
-          </div>
-          <div class="host-row">
-            <span class="host-ip">10.0.1.10</span>
-            <span class="host-name">redis.internal</span>
-            <span class="host-note">Cache cluster</span>
-          </div>
-          <div class="host-row">
-            <span class="host-ip disabled">10.0.2.88</span>
-            <span class="host-name disabled">legacy-auth.internal</span>
-            <span class="host-note">Old auth <span class="off-pill">off</span></span>
-          </div>
-          <div class="host-row">
-            <span class="host-ip">10.0.1.75</span>
-            <span class="host-name">logs.company.internal</span>
-            <span class="host-note">Datadog agent</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="app-bottom">
-      <span class="app-status-text">Work VPN is currently active · 6 hosts entries applied</span>
-      <div class="apply-btn">Active Context ⌘↩</div>
-    </div>
+    <img
+      class="product-screenshot"
+      src="assets/locale-main-active.png?v=1"
+      width="1800"
+      height="1000"
+      alt="Locale app main window showing the Home context active with hosts controls and status feedback"
+      fetchpriority="high">
   </div>
 </div>
 
@@ -1400,6 +965,27 @@
     </div>
   </div>
 
+  <div class="shot-grid reveal">
+    <figure class="shot-card">
+      <img
+        src="assets/locale-new-context.png?v=1"
+        width="1800"
+        height="1144"
+        loading="lazy"
+        alt="Locale new context dialog with name field, color choices, and preview">
+      <figcaption>Create a context with a name, color, and live preview.</figcaption>
+    </figure>
+    <figure class="shot-card">
+      <img
+        src="assets/locale-main-toast.png?v=1"
+        width="1800"
+        height="1144"
+        loading="lazy"
+        alt="Locale main window showing a duplicated context confirmation toast">
+      <figcaption>Actions like duplicate, delete, and apply give clear feedback.</figcaption>
+    </figure>
+  </div>
+
   <!-- Safety model -->
   <p class="section-label reveal" style="margin-bottom:16px">Safety model</p>
   <div class="dns-row reveal">
@@ -1424,7 +1010,7 @@
     </div>
   </div>
 
-  <!-- Menu bar mockup -->
+  <!-- Menu bar screenshot -->
   <div class="menubar-demo reveal">
     <div class="menubar-text">
       <p class="section-label" style="margin-bottom:16px">Menu bar</p>
@@ -1433,65 +1019,14 @@
         The active context shows in the menu bar. Switch between contexts without opening the main window. Locale stays running as a background app.
       </p>
     </div>
-    <div class="menubar-mockup">
-      <div class="mb-header">
-        <div class="mb-header-left">
-          <img class="mb-app-icon" src="assets/app-icon-dark.png?v=6" alt="">
-          Locale
-        </div>
-        <span class="mb-active-pill">Work VPN</span>
-      </div>
-      <div class="mb-row">
-        <div class="mb-row-left">
-          <div class="mb-dot" style="background:#4ade80"></div>
-          Home
-        </div>
-        <div class="mb-row-right">
-          <span class="mb-count">0</span>
-        </div>
-      </div>
-      <div class="mb-row" style="background:rgba(96,165,250,0.08)">
-        <div class="mb-row-left">
-          <div class="mb-dot" style="background:#60a5fa"></div>
-          Work VPN
-        </div>
-        <div class="mb-row-right">
-          <span class="mb-check">✓</span>
-          <span class="mb-count">6</span>
-        </div>
-      </div>
-      <div class="mb-row">
-        <div class="mb-row-left">
-          <div class="mb-dot" style="background:#fb923c"></div>
-          Staging Dev
-        </div>
-        <div class="mb-row-right">
-          <span class="mb-count">3</span>
-        </div>
-      </div>
-      <div class="mb-row">
-        <div class="mb-row-left">
-          <div class="mb-dot" style="background:#c084fc"></div>
-          Travel / Café
-        </div>
-        <div class="mb-row-right">
-          <span class="mb-count">1</span>
-        </div>
-      </div>
-      <div class="mb-divider"></div>
-      <div class="mb-action">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" style="color:#5e5a54">
-          <rect x="1" y="1" width="10" height="10" rx="2"/>
-        </svg>
-        Open Locale…
-      </div>
-      <div class="mb-action">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" style="color:#5e5a54">
-          <path d="M6 1v4.5M3 3.5A5 5 0 1 0 9 3.5"/>
-        </svg>
-        Quit Locale
-      </div>
-    </div>
+    <figure class="menubar-shot">
+      <img
+        src="assets/locale-menu-popover.png?v=1"
+        width="612"
+        height="612"
+        loading="lazy"
+        alt="Locale menu bar popover listing contexts and quick actions">
+    </figure>
   </div>
 </section>
 
