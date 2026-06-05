@@ -47,7 +47,7 @@ actor DNSProxyController {
         let manager = NEDNSProxyManager.shared()
 
         do {
-            try await manager.loadFromPreferences()
+            try await manager.loadFromPreferencesWithTimeout()
             let providerProtocol = NEDNSProxyProviderProtocol()
             providerProtocol.providerBundleIdentifier = LocaleDNSConstants.extensionBundleIdentifier
             providerProtocol.serverAddress = "Locale DNS Proxy"
@@ -59,7 +59,7 @@ actor DNSProxyController {
             manager.localizedDescription = "Locale"
             manager.providerProtocol = providerProtocol
             manager.isEnabled = isEnabled
-            try await manager.saveToPreferences()
+            try await manager.saveToPreferencesWithTimeout()
         } catch {
             throw DNSProxyControllerError.preferencesFailed(error.localizedDescription)
         }
@@ -157,27 +157,73 @@ private final class SystemExtensionRequestDelegate: NSObject, OSSystemExtensionR
 }
 
 private extension NEDNSProxyManager {
-    func loadFromPreferences() async throws {
+    func loadFromPreferencesWithTimeout() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            let operation = PreferenceOperationContinuation(continuation: continuation, operationName: "load DNS proxy preferences")
+            operation.scheduleTimeout()
             loadFromPreferences { error in
                 if let error {
-                    continuation.resume(throwing: error)
+                    operation.resume(throwing: error)
                 } else {
-                    continuation.resume()
+                    operation.resume()
                 }
             }
         }
     }
 
-    func saveToPreferences() async throws {
+    func saveToPreferencesWithTimeout() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            let operation = PreferenceOperationContinuation(continuation: continuation, operationName: "save DNS proxy preferences")
+            operation.scheduleTimeout()
             saveToPreferences { error in
                 if let error {
-                    continuation.resume(throwing: error)
+                    operation.resume(throwing: error)
                 } else {
-                    continuation.resume()
+                    operation.resume()
                 }
             }
         }
+    }
+}
+
+private final class PreferenceOperationContinuation: @unchecked Sendable {
+    private let lock = NSLock()
+    private var continuation: CheckedContinuation<Void, Error>?
+    private let operationName: String
+
+    init(continuation: CheckedContinuation<Void, Error>, operationName: String) {
+        self.continuation = continuation
+        self.operationName = operationName
+    }
+
+    func scheduleTimeout() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            guard let self else { return }
+            self.resume(
+                throwing: DNSProxyControllerError.preferencesFailed(
+                    "Timed out while trying to \(self.operationName). Check that Locale is signed with the DNS Proxy Network Extension entitlement."
+                )
+            )
+        }
+    }
+
+    func resume() {
+        finish { $0.resume() }
+    }
+
+    func resume(throwing error: Error) {
+        finish { $0.resume(throwing: error) }
+    }
+
+    private func finish(_ resume: (CheckedContinuation<Void, Error>) -> Void) {
+        lock.lock()
+        guard let continuation else {
+            lock.unlock()
+            return
+        }
+        self.continuation = nil
+        lock.unlock()
+
+        resume(continuation)
     }
 }
