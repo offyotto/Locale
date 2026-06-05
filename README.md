@@ -10,7 +10,7 @@ before every apply, and flushes the local DNS cache after a successful write.
 
 - Create named hosts contexts for local development, VPNs, labs, and temporary debugging.
 - Add, disable, and remove host entries per context.
-- Apply a context through the standard macOS administrator authorization prompt.
+- Apply a context through Locale's bundled privileged helper.
 - Revert to a clean `Home` context to remove Locale-managed hosts.
 - Switch active contexts from the menu bar.
 - Import and export contexts as JSON.
@@ -44,8 +44,10 @@ backup under:
 Locale currently applies hosts entries only. It does not change macOS network
 service DNS settings yet.
 
-Because writing `/etc/hosts` requires privileged system access, Locale is aimed
-at Developer ID distribution rather than the Mac App Store sandbox.
+Locale uses a sandboxed main app plus a bundled `SMAppService` launch daemon.
+The helper is approved once by an admin, then receives only complete hosts-file
+payloads over XPC. Production builds must be signed and notarized for the helper
+to register successfully.
 
 ## Requirements
 

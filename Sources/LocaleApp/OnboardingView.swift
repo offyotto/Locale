@@ -29,7 +29,7 @@ struct OnboardingView: View {
             title: "Hosts Entries",
             subtitle: "IP to hostname mappings",
             description: "Each context holds a list of IP to hostname mappings. When you activate a context, enabled entries are written to Locale's managed block in /etc/hosts.",
-            detail: "Locale asks for administrator authorization before writing, creates a backup, and flushes the local DNS cache after a successful apply."
+            detail: "Locale asks you to approve its helper once, creates a backup before writing, and flushes the local DNS cache after a successful apply."
         ),
         OnboardingStep(
             icon: "menubar.rectangle",

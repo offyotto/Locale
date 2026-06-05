@@ -3,6 +3,7 @@ set -euo pipefail
 
 MODE="${1:-run}"
 PRODUCT_NAME="LocaleApp"
+HELPER_PRODUCT_NAME="LocaleHelper"
 APP_NAME="Locale"
 BUNDLE_ID="dev.offyotto.Locale"
 DISPLAY_NAME="Locale"
@@ -14,13 +15,19 @@ APP_BUNDLE="$DIST_DIR/$APP_NAME.app"
 APP_CONTENTS="$APP_BUNDLE/Contents"
 APP_MACOS="$APP_CONTENTS/MacOS"
 APP_RESOURCES="$APP_CONTENTS/Resources"
+APP_LIBRARY="$APP_CONTENTS/Library"
+APP_LAUNCH_DAEMONS="$APP_LIBRARY/LaunchDaemons"
+APP_LAUNCH_SERVICES="$APP_LIBRARY/LaunchServices"
 APP_BINARY="$APP_MACOS/$PRODUCT_NAME"
+HELPER_BINARY="$APP_LAUNCH_SERVICES/$HELPER_PRODUCT_NAME"
 INFO_PLIST="$APP_CONTENTS/Info.plist"
 ICON_SOURCE="$ROOT_DIR/Assets/AppIcon.icon"
 ICON_BUILD_DIR="$ROOT_DIR/Resources/IconBuild"
 APP_ICON="$ROOT_DIR/Resources/AppIcon.icns"
 ASSETS_CAR="$ROOT_DIR/Resources/Assets.car"
 PARTIAL_INFO_PLIST="$ROOT_DIR/Resources/IconPartialInfo.plist"
+HELPER_PLIST="$ROOT_DIR/Resources/dev.offyotto.Locale.Helper.plist"
+APP_ENTITLEMENTS="$ROOT_DIR/Resources/Locale.entitlements"
 
 build_app_icon() {
   if [[ ! -d "$ICON_SOURCE" ]]; then
@@ -48,13 +55,18 @@ cd "$ROOT_DIR"
 pkill -x "$PRODUCT_NAME" >/dev/null 2>&1 || true
 
 swift build -c release
-BUILD_BINARY="$(swift build -c release --show-bin-path)/$PRODUCT_NAME"
+BUILD_DIR="$(swift build -c release --show-bin-path)"
+BUILD_BINARY="$BUILD_DIR/$PRODUCT_NAME"
+BUILD_HELPER_BINARY="$BUILD_DIR/$HELPER_PRODUCT_NAME"
 build_app_icon
 
 rm -rf "$APP_BUNDLE"
-mkdir -p "$APP_MACOS" "$APP_RESOURCES"
+mkdir -p "$APP_MACOS" "$APP_RESOURCES" "$APP_LAUNCH_DAEMONS" "$APP_LAUNCH_SERVICES"
 cp "$BUILD_BINARY" "$APP_BINARY"
 chmod +x "$APP_BINARY"
+cp "$BUILD_HELPER_BINARY" "$HELPER_BINARY"
+chmod +x "$HELPER_BINARY"
+cp "$HELPER_PLIST" "$APP_LAUNCH_DAEMONS/$(basename "$HELPER_PLIST")"
 cp "$APP_ICON" "$APP_RESOURCES/AppIcon.icns"
 cp "$ASSETS_CAR" "$APP_RESOURCES/Assets.car"
 
@@ -91,7 +103,8 @@ cat >"$INFO_PLIST" <<PLIST
 </plist>
 PLIST
 
-codesign --force --sign - "$APP_BUNDLE" >/dev/null
+codesign --force --sign - --identifier "dev.offyotto.Locale.Helper" "$HELPER_BINARY" >/dev/null
+codesign --force --sign - --entitlements "$APP_ENTITLEMENTS" "$APP_BUNDLE" >/dev/null
 
 open_app() {
   /usr/bin/open -n "$APP_BUNDLE"

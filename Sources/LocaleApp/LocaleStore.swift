@@ -82,9 +82,12 @@ final class LocaleStore: ObservableObject {
         let activeHostCount = context.activeHostCount
 
         Task {
-            let result = await Task.detached(priority: .userInitiated) {
-                Result {
-                    try SystemApplyService.applyHosts(for: context)
+            let result: Result<Void, Error> = await Task.detached(priority: .userInitiated) {
+                do {
+                    try await SystemApplyService.applyHosts(for: context)
+                    return .success(())
+                } catch {
+                    return .failure(error)
                 }
             }.value
 

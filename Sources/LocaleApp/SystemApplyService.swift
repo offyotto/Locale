@@ -23,7 +23,7 @@ enum SystemApplyService {
     private static let beginMarker = "# BEGIN LOCALE MANAGED HOSTS"
     private static let endMarker = "# END LOCALE MANAGED HOSTS"
 
-    static func applyHosts(for context: NetworkContext) throws {
+    static func applyHosts(for context: NetworkContext) async throws {
         let enabledHosts = try validatedHosts(from: context.hosts)
         let currentHosts: String
 
@@ -37,7 +37,11 @@ enum SystemApplyService {
 
         let baseHosts = removingManagedBlock(from: currentHosts)
         let nextHosts = composingHostsFile(from: baseHosts, context: context, enabledHosts: enabledHosts)
-        try writeHostsWithPrivileges(nextHosts)
+        do {
+            try await LocaleHelperClient.shared.applyHosts(nextHosts)
+        } catch {
+            throw SystemApplyError.privilegedWriteFailed(error.localizedDescription)
+        }
     }
 
     private static func validatedHosts(from hosts: [HostEntry]) throws -> [HostEntry] {
@@ -156,56 +160,4 @@ enum SystemApplyService {
         try currentHosts.write(to: backupURL, atomically: true, encoding: .utf8)
     }
 
-    private static func writeHostsWithPrivileges(_ content: String) throws {
-        let tempURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("Locale-hosts-\(UUID().uuidString)")
-        try content.write(to: tempURL, atomically: true, encoding: .utf8)
-        defer { try? FileManager.default.removeItem(at: tempURL) }
-
-        let command = [
-            "/bin/cp \(shellQuoted(tempURL.path)) \(shellQuoted(hostsPath))",
-            "/usr/sbin/chown root:wheel \(shellQuoted(hostsPath))",
-            "/bin/chmod 644 \(shellQuoted(hostsPath))",
-            "/usr/bin/dscacheutil -flushcache",
-            "(/usr/bin/killall -HUP mDNSResponder 2>/dev/null || true)"
-        ].joined(separator: " && ")
-
-        let script = """
-        do shell script \(appleScriptString(command)) with administrator privileges with prompt "Locale needs administrator access to update /etc/hosts."
-        """
-
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
-        process.arguments = ["-e", script]
-
-        let outputPipe = Pipe()
-        let errorPipe = Pipe()
-        process.standardOutput = outputPipe
-        process.standardError = errorPipe
-
-        do {
-            try process.run()
-            process.waitUntilExit()
-        } catch {
-            throw SystemApplyError.privilegedWriteFailed(error.localizedDescription)
-        }
-
-        guard process.terminationStatus == 0 else {
-            let stderr = String(data: errorPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-            let stdout = String(data: outputPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-            let message = [stderr, stdout]
-                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .filter { !$0.isEmpty }
-                .joined(separator: " ")
-            throw SystemApplyError.privilegedWriteFailed(message.isEmpty ? "Authorization was cancelled or failed." : message)
-        }
-    }
-
-    private static func shellQuoted(_ value: String) -> String {
-        "'\(value.replacingOccurrences(of: "'", with: "'\\''"))'"
-    }
-
-    private static func appleScriptString(_ value: String) -> String {
-        "\"\(value.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\""))\""
-    }
 }
