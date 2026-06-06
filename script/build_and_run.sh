@@ -99,6 +99,8 @@ cat >"$INFO_PLIST" <<PLIST
   <string>APPL</string>
   <key>LSMinimumSystemVersion</key>
   <string>$MIN_SYSTEM_VERSION</string>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSPrincipalClass</key>
@@ -128,6 +130,8 @@ cat >"$DNS_PROXY_INFO_PLIST" <<PLIST
   <string>SYSX</string>
   <key>LSMinimumSystemVersion</key>
   <string>$MIN_SYSTEM_VERSION</string>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
   <key>NetworkExtension</key>
   <dict>
     <key>NEProviderClasses</key>
