@@ -13,6 +13,16 @@ Distribution builds must be signed with profiles that include:
 - A saved notary profile named `LocaleNotary` for direct distribution.
 - Network Extension and System Extension capabilities enabled for the app identifiers in the Apple Developer portal.
 
+## App Store Archives In Xcode
+
+Open `Locale.xcodeproj`, select the `LocaleApp` scheme, and archive that
+scheme. The app and `LocaleDNSProxy` targets use automatic signing with the
+development team `6VDP675K4L`.
+
+Do not archive the Swift package workspace directly. Xcode treats package
+archives as Generic Xcode Archives because there is no installable app target
+owning the archive.
+
 Create the notary profile with:
 
 ```bash

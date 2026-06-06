@@ -2,9 +2,10 @@
 
 Locale is a native macOS utility for switching named DNS contexts.
 
-It is built with SwiftUI and Swift Package Manager. Locale stores contexts
-locally, applies the active host mappings through a sandboxed DNS Proxy Network
-Extension, and leaves system host files untouched.
+It is built with SwiftUI. Day-to-day local builds can use Swift Package
+Manager, while App Store archives should use the checked-in Xcode project.
+Locale stores contexts locally, applies the active host mappings through a
+sandboxed DNS Proxy Network Extension, and leaves system host files untouched.
 
 ## Features
 
@@ -51,3 +52,10 @@ The app bundle is written to:
 ```text
 dist/Locale.app
 ```
+
+## Xcode Archive
+
+Open `Locale.xcodeproj`, select the `LocaleApp` scheme, then use
+Product > Archive. Do not archive the Swift package workspace directly; package
+archives appear in Organizer as Generic Xcode Archives instead of macOS app
+archives.
