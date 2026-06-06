@@ -1,0 +1,686 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10A000000000000000000001 /* ContextDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000001 /* ContextDetailView.swift */; };
+		10A000000000000000000002 /* ContextSettingsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000002 /* ContextSettingsTabView.swift */; };
+		10A000000000000000000003 /* DNSProxyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000003 /* DNSProxyController.swift */; };
+		10A000000000000000000004 /* HostsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000004 /* HostsTabView.swift */; };
+		10A000000000000000000005 /* LocaleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000005 /* LocaleApp.swift */; };
+		10A000000000000000000006 /* LocaleCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000006 /* LocaleCommands.swift */; };
+		10A000000000000000000007 /* LocaleStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000007 /* LocaleStore.swift */; };
+		10A000000000000000000008 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000008 /* MenuBarView.swift */; };
+		10A000000000000000000009 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000009 /* Models.swift */; };
+		10A00000000000000000000A /* NewContextSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000A /* NewContextSheet.swift */; };
+		10A00000000000000000000B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000B /* OnboardingView.swift */; };
+		10A00000000000000000000C /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000C /* PreferencesView.swift */; };
+		10A00000000000000000000D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000D /* RootView.swift */; };
+		10A00000000000000000000E /* SharedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000E /* SharedViews.swift */; };
+		10A00000000000000000000F /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F00000000000000000000F /* SidebarView.swift */; };
+		10A000000000000000000010 /* SystemApplyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000010 /* SystemApplyService.swift */; };
+		10A000000000000000000011 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F000000000000000000011 /* ToastView.swift */; };
+		20A000000000000000000001 /* DNSPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F000000000000000000001 /* DNSPacket.swift */; };
+		20A000000000000000000002 /* LocaleDNSConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F000000000000000000002 /* LocaleDNSConfiguration.swift */; };
+		30A000000000000000000001 /* DNSProxyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F000000000000000000001 /* DNSProxyProvider.swift */; };
+		30A000000000000000000002 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F000000000000000000002 /* main.swift */; };
+		40A000000000000000000001 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 40F000000000000000000003 /* AppIcon.icns */; };
+		40A000000000000000000002 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = 40F000000000000000000004 /* Assets.car */; };
+		50A000000000000000000001 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F000000000000000000001 /* NetworkExtension.framework */; };
+		50A000000000000000000002 /* SystemExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F000000000000000000002 /* SystemExtensions.framework */; };
+		50A000000000000000000003 /* libLocaleShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000002 /* libLocaleShared.a */; };
+		50A000000000000000000004 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F000000000000000000001 /* NetworkExtension.framework */; };
+		50A000000000000000000005 /* libLocaleShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000002 /* libLocaleShared.a */; };
+		60A000000000000000000001 /* LocaleDNSProxy.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000003 /* LocaleDNSProxy.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		70C000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 222222222222222222222222;
+			remoteInfo = LocaleShared;
+		};
+		70C000000000000000000002 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 333333333333333333333333;
+			remoteInfo = LocaleDNSProxy;
+		};
+		70C000000000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 222222222222222222222222;
+			remoteInfo = LocaleShared;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		110000000000000000000004 /* Embed System Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Library/SystemExtensions";
+			dstSubfolderSpec = 16;
+			files = (
+				60A000000000000000000001 /* LocaleDNSProxy.systemextension in Embed System Extensions */,
+			);
+			name = "Embed System Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		10F000000000000000000001 /* ContextDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDetailView.swift; sourceTree = "<group>"; };
+		10F000000000000000000002 /* ContextSettingsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextSettingsTabView.swift; sourceTree = "<group>"; };
+		10F000000000000000000003 /* DNSProxyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSProxyController.swift; sourceTree = "<group>"; };
+		10F000000000000000000004 /* HostsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostsTabView.swift; sourceTree = "<group>"; };
+		10F000000000000000000005 /* LocaleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleApp.swift; sourceTree = "<group>"; };
+		10F000000000000000000006 /* LocaleCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleCommands.swift; sourceTree = "<group>"; };
+		10F000000000000000000007 /* LocaleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleStore.swift; sourceTree = "<group>"; };
+		10F000000000000000000008 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		10F000000000000000000009 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		10F00000000000000000000A /* NewContextSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContextSheet.swift; sourceTree = "<group>"; };
+		10F00000000000000000000B /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		10F00000000000000000000C /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		10F00000000000000000000D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		10F00000000000000000000E /* SharedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViews.swift; sourceTree = "<group>"; };
+		10F00000000000000000000F /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		10F000000000000000000010 /* SystemApplyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemApplyService.swift; sourceTree = "<group>"; };
+		10F000000000000000000011 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		20F000000000000000000001 /* DNSPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSPacket.swift; sourceTree = "<group>"; };
+		20F000000000000000000002 /* LocaleDNSConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleDNSConfiguration.swift; sourceTree = "<group>"; };
+		30F000000000000000000001 /* DNSProxyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSProxyProvider.swift; sourceTree = "<group>"; };
+		30F000000000000000000002 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		40F000000000000000000001 /* Locale.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Locale.entitlements; sourceTree = "<group>"; };
+		40F000000000000000000002 /* LocaleDNSProxy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocaleDNSProxy.entitlements; sourceTree = "<group>"; };
+		40F000000000000000000003 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		40F000000000000000000004 /* Assets.car */ = {isa = PBXFileReference; lastKnownFileType = file; path = Assets.car; sourceTree = "<group>"; };
+		40F000000000000000000005 /* Locale-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Locale-Info.plist"; sourceTree = "<group>"; };
+		40F000000000000000000006 /* LocaleDNSProxy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LocaleDNSProxy-Info.plist"; sourceTree = "<group>"; };
+		50F000000000000000000001 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		50F000000000000000000002 /* SystemExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemExtensions.framework; path = System/Library/Frameworks/SystemExtensions.framework; sourceTree = SDKROOT; };
+		90F000000000000000000001 /* Locale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Locale.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F000000000000000000002 /* libLocaleShared.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLocaleShared.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F000000000000000000003 /* LocaleDNSProxy.systemextension */ = {isa = PBXFileReference; explicitFileType = wrapper.system-extension; includeInIndex = 0; path = LocaleDNSProxy.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		110000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A000000000000000000001 /* NetworkExtension.framework in Frameworks */,
+				50A000000000000000000002 /* SystemExtensions.framework in Frameworks */,
+				50A000000000000000000003 /* libLocaleShared.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		330000000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A000000000000000000004 /* NetworkExtension.framework in Frameworks */,
+				50A000000000000000000005 /* libLocaleShared.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000009 /* Sources */,
+				000000000000000000000007 /* Resources */,
+				000000000000000000000008 /* Frameworks */,
+				000000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90F000000000000000000001 /* Locale.app */,
+				90F000000000000000000002 /* libLocaleShared.a */,
+				90F000000000000000000003 /* LocaleDNSProxy.systemextension */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		000000000000000000000004 /* LocaleApp */ = {
+			isa = PBXGroup;
+			children = (
+				10F000000000000000000001 /* ContextDetailView.swift */,
+				10F000000000000000000002 /* ContextSettingsTabView.swift */,
+				10F000000000000000000003 /* DNSProxyController.swift */,
+				10F000000000000000000004 /* HostsTabView.swift */,
+				10F000000000000000000005 /* LocaleApp.swift */,
+				10F000000000000000000006 /* LocaleCommands.swift */,
+				10F000000000000000000007 /* LocaleStore.swift */,
+				10F000000000000000000008 /* MenuBarView.swift */,
+				10F000000000000000000009 /* Models.swift */,
+				10F00000000000000000000A /* NewContextSheet.swift */,
+				10F00000000000000000000B /* OnboardingView.swift */,
+				10F00000000000000000000C /* PreferencesView.swift */,
+				10F00000000000000000000D /* RootView.swift */,
+				10F00000000000000000000E /* SharedViews.swift */,
+				10F00000000000000000000F /* SidebarView.swift */,
+				10F000000000000000000010 /* SystemApplyService.swift */,
+				10F000000000000000000011 /* ToastView.swift */,
+			);
+			path = Sources/LocaleApp;
+			sourceTree = "<group>";
+		};
+		000000000000000000000005 /* LocaleShared */ = {
+			isa = PBXGroup;
+			children = (
+				20F000000000000000000001 /* DNSPacket.swift */,
+				20F000000000000000000002 /* LocaleDNSConfiguration.swift */,
+			);
+			path = Sources/LocaleShared;
+			sourceTree = "<group>";
+		};
+		000000000000000000000006 /* LocaleDNSProxy */ = {
+			isa = PBXGroup;
+			children = (
+				30F000000000000000000001 /* DNSProxyProvider.swift */,
+				30F000000000000000000002 /* main.swift */,
+			);
+			path = Sources/LocaleDNSProxy;
+			sourceTree = "<group>";
+		};
+		000000000000000000000007 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				40F000000000000000000005 /* Locale-Info.plist */,
+				40F000000000000000000006 /* LocaleDNSProxy-Info.plist */,
+				40F000000000000000000001 /* Locale.entitlements */,
+				40F000000000000000000002 /* LocaleDNSProxy.entitlements */,
+				40F000000000000000000003 /* AppIcon.icns */,
+				40F000000000000000000004 /* Assets.car */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		000000000000000000000008 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50F000000000000000000001 /* NetworkExtension.framework */,
+				50F000000000000000000002 /* SystemExtensions.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		000000000000000000000009 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000004 /* LocaleApp */,
+				000000000000000000000005 /* LocaleShared */,
+				000000000000000000000006 /* LocaleDNSProxy */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		111111111111111111111111 /* LocaleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleApp" */;
+			buildPhases = (
+				110000000000000000000001 /* Sources */,
+				110000000000000000000002 /* Frameworks */,
+				110000000000000000000003 /* Resources */,
+				110000000000000000000004 /* Embed System Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70D000000000000000000001 /* PBXTargetDependency */,
+				70D000000000000000000002 /* PBXTargetDependency */,
+			);
+			name = LocaleApp;
+			productName = Locale;
+			productReference = 90F000000000000000000001 /* Locale.app */;
+			productType = "com.apple.product-type.application";
+		};
+		222222222222222222222222 /* LocaleShared */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleShared" */;
+			buildPhases = (
+				220000000000000000000001 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LocaleShared;
+			productName = LocaleShared;
+			productReference = 90F000000000000000000002 /* libLocaleShared.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		333333333333333333333333 /* LocaleDNSProxy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleDNSProxy" */;
+			buildPhases = (
+				330000000000000000000001 /* Sources */,
+				330000000000000000000002 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70D000000000000000000003 /* PBXTargetDependency */,
+			);
+			name = LocaleDNSProxy;
+			productName = LocaleDNSProxy;
+			productReference = 90F000000000000000000003 /* LocaleDNSProxy.systemextension */;
+			productType = "com.apple.product-type.system-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2650;
+				LastUpgradeCheck = 2650;
+				TargetAttributes = {
+					111111111111111111111111 = {
+						CreatedOnToolsVersion = 26.5;
+						DevelopmentTeam = 6VDP675K4L;
+						ProvisioningStyle = Automatic;
+					};
+					222222222222222222222222 = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					333333333333333333333333 = {
+						CreatedOnToolsVersion = 26.5;
+						DevelopmentTeam = 6VDP675K4L;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 80L000000000000000000001 /* Build configuration list for PBXProject "Locale" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000002;
+			productRefGroup = 000000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				111111111111111111111111 /* LocaleApp */,
+				333333333333333333333333 /* LocaleDNSProxy */,
+				222222222222222222222222 /* LocaleShared */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		110000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A000000000000000000001 /* AppIcon.icns in Resources */,
+				40A000000000000000000002 /* Assets.car in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		110000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10A000000000000000000001 /* ContextDetailView.swift in Sources */,
+				10A000000000000000000002 /* ContextSettingsTabView.swift in Sources */,
+				10A000000000000000000003 /* DNSProxyController.swift in Sources */,
+				10A000000000000000000004 /* HostsTabView.swift in Sources */,
+				10A000000000000000000005 /* LocaleApp.swift in Sources */,
+				10A000000000000000000006 /* LocaleCommands.swift in Sources */,
+				10A000000000000000000007 /* LocaleStore.swift in Sources */,
+				10A000000000000000000008 /* MenuBarView.swift in Sources */,
+				10A000000000000000000009 /* Models.swift in Sources */,
+				10A00000000000000000000A /* NewContextSheet.swift in Sources */,
+				10A00000000000000000000B /* OnboardingView.swift in Sources */,
+				10A00000000000000000000C /* PreferencesView.swift in Sources */,
+				10A00000000000000000000D /* RootView.swift in Sources */,
+				10A00000000000000000000E /* SharedViews.swift in Sources */,
+				10A00000000000000000000F /* SidebarView.swift in Sources */,
+				10A000000000000000000010 /* SystemApplyService.swift in Sources */,
+				10A000000000000000000011 /* ToastView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		220000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20A000000000000000000001 /* DNSPacket.swift in Sources */,
+				20A000000000000000000002 /* LocaleDNSConfiguration.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		330000000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30A000000000000000000001 /* DNSProxyProvider.swift in Sources */,
+				30A000000000000000000002 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		70D000000000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 222222222222222222222222 /* LocaleShared */;
+			targetProxy = 70C000000000000000000001 /* PBXContainerItemProxy */;
+		};
+		70D000000000000000000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 333333333333333333333333 /* LocaleDNSProxy */;
+			targetProxy = 70C000000000000000000002 /* PBXContainerItemProxy */;
+		};
+		70D000000000000000000003 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 222222222222222222222222 /* LocaleShared */;
+			targetProxy = 70C000000000000000000003 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		80C000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		80C000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		81C000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/Locale.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/Locale-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale;
+				PRODUCT_MODULE_NAME = LocaleApp;
+				PRODUCT_NAME = Locale;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		81C000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/Locale.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/Locale-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale;
+				PRODUCT_MODULE_NAME = LocaleApp;
+				PRODUCT_NAME = Locale;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		82C000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				MACH_O_TYPE = staticlib;
+				PRODUCT_MODULE_NAME = LocaleShared;
+				PRODUCT_NAME = LocaleShared;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		82C000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				MACH_O_TYPE = staticlib;
+				PRODUCT_MODULE_NAME = LocaleShared;
+				PRODUCT_NAME = LocaleShared;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		83C000000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/LocaleDNSProxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/LocaleDNSProxy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale.LocaleDNSProxy;
+				PRODUCT_MODULE_NAME = LocaleDNSProxy;
+				PRODUCT_NAME = LocaleDNSProxy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = systemextension;
+			};
+			name = Debug;
+		};
+		83C000000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/LocaleDNSProxy.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/LocaleDNSProxy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale.LocaleDNSProxy;
+				PRODUCT_MODULE_NAME = LocaleDNSProxy;
+				PRODUCT_NAME = LocaleDNSProxy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_EXTENSION = systemextension;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80L000000000000000000001 /* Build configuration list for PBXProject "Locale" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80C000000000000000000001 /* Debug */,
+				80C000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		81L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81C000000000000000000001 /* Debug */,
+				81C000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleShared" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82C000000000000000000001 /* Debug */,
+				82C000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83L000000000000000000001 /* Build configuration list for PBXNativeTarget "LocaleDNSProxy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83C000000000000000000001 /* Debug */,
+				83C000000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000001 /* Project object */;
+}
