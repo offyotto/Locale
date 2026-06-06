@@ -35,7 +35,7 @@
 		50A000000000000000000003 /* libLocaleShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000002 /* libLocaleShared.a */; };
 		50A000000000000000000004 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F000000000000000000001 /* NetworkExtension.framework */; };
 		50A000000000000000000005 /* libLocaleShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000002 /* libLocaleShared.a */; };
-		60A000000000000000000001 /* LocaleDNSProxy.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000003 /* LocaleDNSProxy.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		60A000000000000000000001 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension in Embed System Extensions */ = {isa = PBXBuildFile; fileRef = 90F000000000000000000003 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +69,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Library/SystemExtensions";
 			dstSubfolderSpec = 16;
 			files = (
-				60A000000000000000000001 /* LocaleDNSProxy.systemextension in Embed System Extensions */,
+				60A000000000000000000001 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension in Embed System Extensions */,
 			);
 			name = "Embed System Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,7 +108,7 @@
 		50F000000000000000000002 /* SystemExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemExtensions.framework; path = System/Library/Frameworks/SystemExtensions.framework; sourceTree = SDKROOT; };
 		90F000000000000000000001 /* Locale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Locale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F000000000000000000002 /* libLocaleShared.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLocaleShared.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		90F000000000000000000003 /* LocaleDNSProxy.systemextension */ = {isa = PBXFileReference; explicitFileType = wrapper.system-extension; includeInIndex = 0; path = LocaleDNSProxy.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
+		90F000000000000000000003 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension */ = {isa = PBXFileReference; explicitFileType = wrapper.system-extension; includeInIndex = 0; path = dev.offyotto.Locale.LocaleDNSProxy.systemextension; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +149,7 @@
 			children = (
 				90F000000000000000000001 /* Locale.app */,
 				90F000000000000000000002 /* libLocaleShared.a */,
-				90F000000000000000000003 /* LocaleDNSProxy.systemextension */,
+				90F000000000000000000003 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 			);
 			name = LocaleDNSProxy;
 			productName = LocaleDNSProxy;
-			productReference = 90F000000000000000000003 /* LocaleDNSProxy.systemextension */;
+			productReference = 90F000000000000000000003 /* dev.offyotto.Locale.LocaleDNSProxy.systemextension */;
 			productType = "com.apple.product-type.system-extension";
 		};
 /* End PBXNativeTarget section */
@@ -611,6 +611,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				WRAPPER_NAME = dev.offyotto.Locale.LocaleDNSProxy.systemextension;
 				WRAPPER_EXTENSION = systemextension;
 			};
 			name = Debug;
@@ -637,6 +638,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				WRAPPER_NAME = dev.offyotto.Locale.LocaleDNSProxy.systemextension;
 				WRAPPER_EXTENSION = systemextension;
 			};
 			name = Release;
