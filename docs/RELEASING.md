@@ -19,6 +19,31 @@ Open `Locale.xcodeproj`, select the `LocaleApp` scheme, and archive that
 scheme. The app and `LocaleDNSProxy` targets use automatic signing with the
 development team `6VDP675K4L`.
 
+For TestFlight or App Store submission, choose **App Store Connect** in
+Organizer. Do not choose Direct Distribution for this path. Apple's Store
+profiles carry the Network Extension value `dns-proxy`, which is what the
+`Release` configuration uses.
+
+If you intentionally need a Direct Distribution archive, switch the scheme to
+`LocaleAppDirect` before archiving. Direct profiles carry
+`dns-proxy-systemextension`, so that scheme archives the separate `Direct`
+configuration with `Resources/LocaleDirect.entitlements` and
+`Resources/LocaleDNSProxyDirect.entitlements`. The Direct configuration archives
+unsigned on purpose; Xcode signs it during export with the Direct/Developer ID
+profiles.
+
+The repeatable CLI path for Developer ID export is:
+
+```bash
+./script/export_developer_id.sh
+```
+
+It writes:
+
+```text
+dist/developer-id/Locale.app
+```
+
 Do not archive the Swift package workspace directly. Xcode treats package
 archives as Generic Xcode Archives because there is no installable app target
 owning the archive.
@@ -45,6 +70,10 @@ dist/Locale-notarized.zip
 ```
 
 It also validates the stapled app with `spctl` and `xcrun stapler validate`.
+
+The notarization script signs with the Direct entitlement files because
+Developer ID and Direct system extension profiles use the `-systemextension`
+Network Extension values.
 
 ## Network Extension Notes
 
