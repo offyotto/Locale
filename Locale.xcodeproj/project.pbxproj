@@ -100,6 +100,8 @@
 		30F000000000000000000002 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		40F000000000000000000001 /* Locale.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Locale.entitlements; sourceTree = "<group>"; };
 		40F000000000000000000002 /* LocaleDNSProxy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocaleDNSProxy.entitlements; sourceTree = "<group>"; };
+		40F000000000000000000007 /* LocaleDirect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocaleDirect.entitlements; sourceTree = "<group>"; };
+		40F000000000000000000008 /* LocaleDNSProxyDirect.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocaleDNSProxyDirect.entitlements; sourceTree = "<group>"; };
 		40F000000000000000000003 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		40F000000000000000000004 /* Assets.car */ = {isa = PBXFileReference; lastKnownFileType = file; path = Assets.car; sourceTree = "<group>"; };
 		40F000000000000000000005 /* Locale-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Locale-Info.plist"; sourceTree = "<group>"; };
@@ -203,6 +205,8 @@
 				40F000000000000000000006 /* LocaleDNSProxy-Info.plist */,
 				40F000000000000000000001 /* Locale.entitlements */,
 				40F000000000000000000002 /* LocaleDNSProxy.entitlements */,
+				40F000000000000000000007 /* LocaleDirect.entitlements */,
+				40F000000000000000000008 /* LocaleDNSProxyDirect.entitlements */,
 				40F000000000000000000003 /* AppIcon.icns */,
 				40F000000000000000000004 /* Assets.car */,
 			);
@@ -517,6 +521,59 @@
 			};
 			name = Release;
 		};
+		80C000000000000000000003 /* Direct */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Direct;
+		};
 		81C000000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -565,6 +622,31 @@
 			};
 			name = Release;
 		};
+		81C000000000000000000003 /* Direct */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/LocaleDirect.entitlements;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/Locale-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale;
+				PRODUCT_MODULE_NAME = LocaleApp;
+				PRODUCT_NAME = Locale;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Direct;
+		};
 		82C000000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -588,6 +670,18 @@
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
+		};
+		82C000000000000000000003 /* Direct */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				MACH_O_TYPE = staticlib;
+				PRODUCT_MODULE_NAME = LocaleShared;
+				PRODUCT_NAME = LocaleShared;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Direct;
 		};
 		83C000000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -643,6 +737,34 @@
 			};
 			name = Release;
 		};
+		83C000000000000000000003 /* Direct */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/LocaleDNSProxyDirect.entitlements;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "20260603.2";
+				DEVELOPMENT_TEAM = 6VDP675K4L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Resources/LocaleDNSProxy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.offyotto.Locale.LocaleDNSProxy;
+				PRODUCT_MODULE_NAME = LocaleDNSProxy;
+				PRODUCT_NAME = LocaleDNSProxy;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				WRAPPER_NAME = dev.offyotto.Locale.LocaleDNSProxy.systemextension;
+				WRAPPER_EXTENSION = systemextension;
+			};
+			name = Direct;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -651,6 +773,7 @@
 			buildConfigurations = (
 				80C000000000000000000001 /* Debug */,
 				80C000000000000000000002 /* Release */,
+				80C000000000000000000003 /* Direct */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -660,6 +783,7 @@
 			buildConfigurations = (
 				81C000000000000000000001 /* Debug */,
 				81C000000000000000000002 /* Release */,
+				81C000000000000000000003 /* Direct */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -669,6 +793,7 @@
 			buildConfigurations = (
 				82C000000000000000000001 /* Debug */,
 				82C000000000000000000002 /* Release */,
+				82C000000000000000000003 /* Direct */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -678,6 +803,7 @@
 			buildConfigurations = (
 				83C000000000000000000001 /* Debug */,
 				83C000000000000000000002 /* Release */,
+				83C000000000000000000003 /* Direct */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,28 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_NAME="Locale"
-TEAM_ID="${TEAM_ID:-6VDP675K4L}"
-NOTARY_PROFILE="${NOTARY_PROFILE:-LocaleNotary}"
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DIST_DIR="$ROOT_DIR/dist"
-APP_BUNDLE="$DIST_DIR/$APP_NAME.app"
+TEAM_ID="${TEAM_ID:-6VDP675K4L}"
+ARCHIVE_PATH="${ARCHIVE_PATH:-$ROOT_DIR/dist/archives/LocaleDirect.xcarchive}"
+EXPORT_PATH="${EXPORT_PATH:-$ROOT_DIR/dist/developer-id}"
+EXPORT_OPTIONS="${EXPORT_OPTIONS:-$ROOT_DIR/Resources/ExportOptions-DeveloperID.plist}"
+APP_BUNDLE="$EXPORT_PATH/Locale.app"
 DNS_PROXY_BUNDLE_ID="dev.offyotto.Locale.LocaleDNSProxy"
 DNS_PROXY_BUNDLE="$APP_BUNDLE/Contents/Library/SystemExtensions/$DNS_PROXY_BUNDLE_ID.systemextension"
 APP_ENTITLEMENTS="$ROOT_DIR/Resources/LocaleDirect.entitlements"
 DNS_PROXY_ENTITLEMENTS="$ROOT_DIR/Resources/LocaleDNSProxyDirect.entitlements"
 APP_PROFILE_NAME="Mac Team Direct Provisioning Profile: dev.offyotto.Locale"
 DNS_PROXY_PROFILE_NAME="Mac Team Direct Provisioning Profile: dev.offyotto.Locale.LocaleDNSProxy"
-SIGNED_ZIP="$DIST_DIR/$APP_NAME-signed.zip"
-NOTARIZED_ZIP="$DIST_DIR/$APP_NAME-notarized.zip"
 
 find_identity() {
-  if [[ -n "${CODESIGN_IDENTITY:-}" ]]; then
-    echo "$CODESIGN_IDENTITY"
-    return
-  fi
-
   security find-identity -v -p codesigning \
     | sed -n 's/.*"\(Developer ID Application: .*'"$TEAM_ID"'.*\)"/\1/p' \
     | head -n 1
@@ -50,54 +42,59 @@ find_profile() {
   return 1
 }
 
-IDENTITY="$(find_identity)"
-if [[ -z "$IDENTITY" ]]; then
-  cat >&2 <<EOF
-No Developer ID Application signing identity was found for team $TEAM_ID.
+cd "$ROOT_DIR"
+rm -rf "$ARCHIVE_PATH" "$EXPORT_PATH"
+mkdir -p "$(dirname "$ARCHIVE_PATH")" "$EXPORT_PATH"
 
-Install the Developer ID Application certificate in Keychain Access, then rerun.
-Current code-signing identities:
-EOF
-  security find-identity -v -p codesigning >&2
+IDENTITY="$(find_identity)"
+APP_PROFILE="$(find_profile "$APP_PROFILE_NAME" || true)"
+DNS_PROXY_PROFILE="$(find_profile "$DNS_PROXY_PROFILE_NAME" || true)"
+
+if [[ -z "$IDENTITY" ]]; then
+  echo "No Developer ID Application signing identity found for team $TEAM_ID." >&2
   exit 1
 fi
 
-APP_PROFILE="$(find_profile "$APP_PROFILE_NAME" || true)"
-DNS_PROXY_PROFILE="$(find_profile "$DNS_PROXY_PROFILE_NAME" || true)"
 if [[ -z "$APP_PROFILE" || -z "$DNS_PROXY_PROFILE" ]]; then
   echo "Missing Direct provisioning profiles. Open Xcode signing once to regenerate them." >&2
   exit 1
 fi
 
-cd "$ROOT_DIR"
-"$ROOT_DIR/script/build_and_run.sh" --build-only
+xcodebuild \
+  -project Locale.xcodeproj \
+  -scheme LocaleAppDirect \
+  -configuration Direct \
+  -destination 'generic/platform=macOS' \
+  -archivePath "$ARCHIVE_PATH" \
+  archive
+
+xcodebuild \
+  -exportArchive \
+  -archivePath "$ARCHIVE_PATH" \
+  -exportPath "$EXPORT_PATH" \
+  -exportOptionsPlist "$EXPORT_OPTIONS" \
+  -allowProvisioningUpdates
 
 cp "$APP_PROFILE" "$APP_BUNDLE/Contents/embedded.provisionprofile"
 cp "$DNS_PROXY_PROFILE" "$DNS_PROXY_BUNDLE/Contents/embedded.provisionprofile"
 
-codesign --force --options runtime --timestamp --identifier "$DNS_PROXY_BUNDLE_ID" --entitlements "$DNS_PROXY_ENTITLEMENTS" --sign "$IDENTITY" "$DNS_PROXY_BUNDLE"
-codesign --force --options runtime --timestamp --entitlements "$APP_ENTITLEMENTS" --sign "$IDENTITY" "$APP_BUNDLE"
+codesign \
+  --force \
+  --options runtime \
+  --timestamp \
+  --identifier "$DNS_PROXY_BUNDLE_ID" \
+  --entitlements "$DNS_PROXY_ENTITLEMENTS" \
+  --sign "$IDENTITY" \
+  "$DNS_PROXY_BUNDLE"
+
+codesign \
+  --force \
+  --options runtime \
+  --timestamp \
+  --entitlements "$APP_ENTITLEMENTS" \
+  --sign "$IDENTITY" \
+  "$APP_BUNDLE"
+
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
 
-rm -f "$SIGNED_ZIP" "$NOTARIZED_ZIP"
-(
-  cd "$DIST_DIR"
-  /usr/bin/ditto -c -k --keepParent "$APP_NAME.app" "$(basename "$SIGNED_ZIP")"
-)
-
-xcrun notarytool submit "$SIGNED_ZIP" \
-  --keychain-profile "$NOTARY_PROFILE" \
-  --team-id "$TEAM_ID" \
-  --wait
-
-xcrun stapler staple "$APP_BUNDLE"
-xcrun stapler validate "$APP_BUNDLE"
-spctl -a -vv "$APP_BUNDLE"
-
-(
-  cd "$DIST_DIR"
-  /usr/bin/ditto -c -k --keepParent "$APP_NAME.app" "$(basename "$NOTARIZED_ZIP")"
-)
-
-echo "Notarized app: $APP_BUNDLE"
-echo "Notarized zip: $NOTARIZED_ZIP"
+echo "Developer ID export: $APP_BUNDLE"
