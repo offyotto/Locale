@@ -3,17 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Locale — macOS Network Context Manager</title>
-<meta name="description" content="Locale is a native macOS utility for switching named DNS contexts safely.">
+<title>Locale — DNS Context Switcher for macOS</title>
+<meta name="description" content="Locale is a free, open-source macOS app that lets you save groups of hostname-to-IP mappings and switch between them in one click. No terminal. No editing /etc/hosts.">
 <meta name="theme-color" content="#1a1714">
-<meta property="og:title" content="Locale">
-<meta property="og:description" content="Switch named DNS contexts on macOS without hand-editing system files.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="offyotto">
+<meta name="application-name" content="Locale">
+<link rel="canonical" href="https://offyotto.github.io/Locale/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Locale — DNS Context Switcher for macOS">
+<meta property="og:description" content="Save groups of hostname-to-IP mappings and switch between them in one click. Free, open source, no terminal needed.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://offyotto.github.io/Locale/">
+<meta property="og:site_name" content="Locale">
+<meta property="og:image" content="https://offyotto.github.io/Locale/assets/locale-main-toast.png">
+<meta property="og:image:width" content="1800">
+<meta property="og:image:height" content="1144">
+<meta property="og:image:alt" content="Locale app window showing DNS context management on macOS">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Locale — DNS Context Switcher for macOS">
+<meta name="twitter:description" content="Save groups of hostname-to-IP mappings and switch between them in one click. Free, open source, no terminal needed.">
+<meta name="twitter:image" content="https://offyotto.github.io/Locale/assets/locale-main-toast.png">
+
 <link rel="icon" href="assets/app-icon-dark.png?v=6" type="image/png" sizes="1024x1024">
 <link rel="apple-touch-icon" href="assets/app-icon-dark.png?v=6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+
+<!-- Structured Data: SoftwareApplication + FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://offyotto.github.io/Locale/#organization",
+      "name": "offyotto",
+      "url": "https://github.com/offyotto"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://offyotto.github.io/Locale/#website",
+      "url": "https://offyotto.github.io/Locale/",
+      "name": "Locale",
+      "description": "Free, open-source DNS context switcher for macOS",
+      "publisher": {
+        "@id": "https://offyotto.github.io/Locale/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://offyotto.github.io/Locale/#software",
+      "name": "Locale",
+      "operatingSystem": "macOS 14+",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "Network Utility",
+      "description": "Locale is a free, open-source macOS app that lets you save groups of hostname-to-IP mappings (DNS contexts) and switch between them in one click, without editing /etc/hosts or using the terminal. It uses Apple's NEDNSProxyProvider to handle DNS resolution safely.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD",
+        "category": "free"
+      },
+      "url": "https://offyotto.github.io/Locale/",
+      "downloadUrl": "https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip",
+      "screenshot": "https://offyotto.github.io/Locale/assets/locale-main-toast.png",
+      "softwareVersion": "1.0.0",
+      "fileSize": "3MB",
+      "datePublished": "2026-06-04",
+      "license": "https://github.com/offyotto/Locale/blob/main/LICENSE",
+      "isAccessibleForFree": true,
+      "releaseNotes": "https://github.com/offyotto/Locale/releases/tag/v1.0.0",
+      "author": {
+        "@id": "https://offyotto.github.io/Locale/#organization"
+      },
+      "sourceOrganization": {
+        "@type": "Organization",
+        "name": "offyotto",
+        "url": "https://github.com/offyotto"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://offyotto.github.io/Locale/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Locale for macOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Locale is a free, open-source macOS app that lets you create named groups of hostname-to-IP mappings (DNS contexts) and switch between them in one click, without editing /etc/hosts or using the terminal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Locale modify /etc/hosts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Locale uses Apple's NEDNSProxyProvider network extension to handle DNS resolution. Your system host files stay untouched."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Locale free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Locale is completely free and open source under the MIT license. No account required, no telemetry, no subscriptions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What macOS version does Locale need?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Locale requires macOS 14 Sonoma or later and runs on both Apple Silicon and Intel Macs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Locale handle DNS safely?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Locale runs a sandboxed DNS proxy via Apple's Network Extension framework. Only hostnames you've mapped get resolved locally — everything else passes through to your normal DNS. Switch back to the Home context to clear all Locale mappings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a DNS context?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A DNS context in Locale is a named group of hostname-to-IP mappings. For example, you might have a Work VPN context that maps internal hostnames to specific IPs, and a Home Lab context for your local network. You can switch between them instantly."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -158,11 +289,6 @@
     pointer-events: none;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
   .hero-title {
     font-family: var(--sans);
     font-size: clamp(40px, 6vw, 72px);
@@ -183,7 +309,7 @@
     font-size: 17px;
     font-weight: 300;
     color: var(--text2);
-    max-width: 480px;
+    max-width: 500px;
     margin: 0 auto 30px;
     line-height: 1.65;
   }
@@ -486,7 +612,6 @@
   }
 
   .dns-cell:hover { background: var(--bg2); }
-
   .dns-cell.selected { background: var(--blue-dim); }
 
   .dns-cell-name {
@@ -499,18 +624,10 @@
     gap: 7px;
   }
 
-  .dns-check {
-    font-size: 11px;
-    color: var(--blue);
-  }
+  .dns-check { font-size: 11px; color: var(--blue); }
+  .dns-addr { font-family: var(--mono); font-size: 11px; color: var(--text3); }
 
-  .dns-addr {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-  }
-
-  /* MENUBAR SECTION */
+  /* MENUBAR */
   .menubar-demo {
     display: flex;
     gap: 40px;
@@ -530,11 +647,7 @@
     box-shadow: 0 24px 54px rgba(0,0,0,0.38);
   }
 
-  .menubar-shot img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
+  .menubar-shot img { display: block; width: 100%; height: auto; }
 
   /* INSTALL */
   .install-block {
@@ -566,14 +679,9 @@
     border-right: none;
   }
 
-  .install-tab.active {
-    color: var(--text);
-    border-bottom-color: var(--green);
-  }
+  .install-tab.active { color: var(--text); border-bottom-color: var(--green); }
 
-  .install-content {
-    padding: 20px 22px;
-  }
+  .install-content { padding: 20px 22px; }
 
   .install-cmd {
     font-family: var(--mono);
@@ -587,6 +695,52 @@
   .install-prompt { color: var(--text3); }
   .install-cmd-text { color: var(--green); }
 
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    padding: 20px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .faq-q:hover { color: var(--green); }
+
+  .faq-chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text3);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+  .faq-a {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text2);
+    line-height: 1.7;
+    padding: 0 0 20px;
+    display: none;
+    max-width: 620px;
+  }
+
+  .faq-item.open .faq-a { display: block; }
+
   /* FOOTER */
   footer {
     border-top: 1px solid var(--border);
@@ -598,189 +752,53 @@
     margin: 0 auto;
   }
 
-  .footer-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .footer-logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--text3);
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 20px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
-    color: var(--text3);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
+  .footer-left { display: flex; align-items: center; gap: 16px; }
+  .footer-logo { font-family: var(--mono); font-size: 13px; color: var(--text3); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 13px; color: var(--text3); text-decoration: none; transition: color 0.15s; }
   .footer-links a:hover { color: var(--text2); }
-
-  .footer-right {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text3);
-  }
+  .footer-right { font-family: var(--mono); font-size: 11px; color: var(--text3); }
 
   /* RESPONSIVE */
   @media (max-width: 920px) {
-    nav {
-      padding: 0 22px;
-    }
-
-    .nav-links {
-      gap: 18px;
-    }
-
-    .hero {
-      padding-right: 24px;
-      padding-left: 24px;
-    }
-
-    .screenshot-wrap,
-    .section {
-      padding-right: 24px;
-      padding-left: 24px;
-    }
-
-    .features-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .how-grid,
-    .menubar-demo {
-      grid-template-columns: 1fr;
-      display: grid;
-      gap: 28px;
-    }
-
-    .menubar-shot {
-      width: min(100%, 320px);
-    }
-
-    .dns-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    nav { padding: 0 22px; }
+    .nav-links { gap: 18px; }
+    .hero { padding-right: 24px; padding-left: 24px; }
+    .screenshot-wrap, .section { padding-right: 24px; padding-left: 24px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .how-grid, .menubar-demo { grid-template-columns: 1fr; display: grid; gap: 28px; }
+    .menubar-shot { width: min(100%, 320px); }
+    .dns-row { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 640px) {
-    nav {
-      height: 58px;
-      padding: 0 16px;
-    }
-
-    .nav-links li:not(:last-child) {
-      display: none;
-    }
-
-    .nav-download {
-      padding: 7px 12px;
-    }
-
-    .hero {
-      min-height: auto;
-      padding: 104px 18px 64px;
-    }
-
-    .hero-title {
-      font-size: clamp(38px, 12vw, 58px);
-    }
-
-    .hero-actions,
-    .hero-meta {
-      display: grid;
-      width: 100%;
-      max-width: 320px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      justify-content: center;
-    }
-
-    .hero-meta {
-      gap: 6px;
-      justify-items: center;
-    }
-
-    .hero-meta span::before {
-      content: "";
-    }
-
-    .screenshot-wrap {
-      padding: 0 14px;
-      margin-bottom: 76px;
-    }
-
-    .screenshot-frame {
-      border-radius: 12px;
-    }
-
-    .shot-grid {
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin: -20px 0 60px;
-    }
-
-    .section {
-      padding: 0 18px 76px;
-    }
-
-    .features-grid,
-    .dns-row {
-      grid-template-columns: 1fr;
-    }
-
-    .how-code {
-      padding: 18px;
-      overflow-x: auto;
-    }
-
-    .code-block {
-      min-width: 420px;
-    }
-
-    .install-tab {
-      flex: 1;
-      padding-right: 10px;
-      padding-left: 10px;
-    }
-
-    #install > div[style*="grid-template-columns"] {
-      grid-template-columns: 1fr !important;
-    }
-
-    footer {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 18px;
-      padding: 28px 18px;
-    }
-
-    .footer-left,
-    .footer-links {
-      flex-wrap: wrap;
-    }
+    nav { height: 58px; padding: 0 16px; }
+    .nav-links li:not(:last-child) { display: none; }
+    .nav-download { padding: 7px 12px; }
+    .hero { min-height: auto; padding: 104px 18px 64px; }
+    .hero-title { font-size: clamp(38px, 12vw, 58px); }
+    .hero-actions, .hero-meta { display: grid; width: 100%; max-width: 320px; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+    .hero-meta { gap: 6px; justify-items: center; }
+    .hero-meta span::before { content: ""; }
+    .screenshot-wrap { padding: 0 14px; margin-bottom: 76px; }
+    .screenshot-frame { border-radius: 12px; }
+    .shot-grid { grid-template-columns: 1fr; gap: 14px; margin: -20px 0 60px; }
+    .section { padding: 0 18px 76px; }
+    .features-grid, .dns-row { grid-template-columns: 1fr; }
+    .how-code { padding: 18px; overflow-x: auto; }
+    .code-block { min-width: 420px; }
+    .install-tab { flex: 1; padding-right: 10px; padding-left: 10px; }
+    #install > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    footer { align-items: flex-start; flex-direction: column; gap: 18px; padding: 28px 18px; }
+    .footer-left, .footer-links { flex-wrap: wrap; }
   }
 
   /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* GRAIN OVERLAY */
+  /* GRAIN */
   body::after {
     content: '';
     position: fixed;
@@ -804,92 +822,79 @@
   <ul class="nav-links">
     <li><a href="#how">How it works</a></li>
     <li><a href="#features">Features</a></li>
-    <li><a href="#install">Install</a></li>
+    <li><a href="#install">Get it</a></li>
     <li><a href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip" class="nav-download">Download</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <h1 class="hero-title">
-    Switch network contexts<br><em>without touching a terminal</em>
-  </h1>
-  <p class="hero-sub">
-    Named DNS mappings. One click to activate. System files stay untouched.
-  </p>
+  <h1 class="hero-title">Your hosts file,<br><em>but better</em></h1>
+  <p class="hero-sub">Locale is a free macOS app that lets you save groups of hostname&#8209;to&#8209;IP mappings and switch between them in one click. No terminal. No editing system files.</p>
   <div class="hero-actions">
     <a href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip" class="btn-primary">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M7 2v7M4 7l3 3 3-3M2 11h10"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 2v7M4 7l3 3 3-3M2 11h10"/></svg>
       Download for Mac
     </a>
-    <a href="#how" class="btn-secondary">See how it works</a>
+    <a href="https://github.com/offyotto/Locale" class="btn-secondary">View source</a>
   </div>
   <div class="hero-meta">
     <span>macOS 14+</span>
     <span>Apple Silicon &amp; Intel</span>
+    <span>Free &amp; open source</span>
   </div>
 </section>
 
 <!-- SCREENSHOT -->
 <div class="screenshot-wrap" id="screenshot">
   <div class="screenshot-frame">
-    <img
-      class="product-screenshot"
-      src="assets/locale-main-toast.png?v=1"
-      width="1800"
-      height="1144"
-      alt="Locale app main window showing a duplicated context, hosts controls, and status feedback"
-      fetchpriority="high">
+    <img class="product-screenshot" src="assets/locale-main-toast.png?v=1" width="1800" height="1144" alt="Locale app window on macOS showing a DNS context with host mappings and status feedback" fetchpriority="high">
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
 <section class="section" id="how">
   <p class="section-label reveal">How it works</p>
-  <h2 class="section-title reveal">Context switch.<br>No friction.</h2>
-  <p class="section-body reveal">
-    Each context holds a named list of host mappings. Activating one updates Locale's DNS proxy so matching requests resolve to your chosen IPs while everything else keeps using the normal resolver.
-  </p>
+  <h2 class="section-title reveal">Create a context.<br>Turn it on.</h2>
+  <p class="section-body reveal">A context is a named list of host entries &mdash; hostname, IP address, optional note. When you activate a context, Locale's DNS proxy resolves matching hostnames to your chosen IPs. Everything else goes through your normal DNS.</p>
 
   <div class="how-grid">
     <div class="how-steps">
       <div class="how-step" data-delay="0">
         <span class="how-step-n">01</span>
         <div class="how-step-content">
-          <div class="how-step-title">Define a context</div>
-          <div class="how-step-desc">Name it, give it a color. Add hosts entries: IP, hostname, optional note. Disable individual entries without deleting them.</div>
+          <div class="how-step-title">Name your context</div>
+          <div class="how-step-desc">Give it a name and a color. Work VPN, home lab, staging &mdash; whatever you need.</div>
         </div>
       </div>
       <div class="how-step" data-delay="100">
         <span class="how-step-n">02</span>
         <div class="how-step-content">
-          <div class="how-step-title">Add host mappings</div>
-          <div class="how-step-desc">Add the IP, hostname, and optional note for each mapping. Disable individual rows without deleting the setup.</div>
+          <div class="how-step-title">Add host entries</div>
+          <div class="how-step-desc">Type in an IP and a hostname. Add as many as you want. Disable individual rows without deleting them.</div>
         </div>
       </div>
       <div class="how-step" data-delay="200">
         <span class="how-step-n">03</span>
         <div class="how-step-content">
-          <div class="how-step-title">Apply Context</div>
-          <div class="how-step-desc">One click after system extension approval. Locale updates its DNS proxy configuration without touching host files.</div>
+          <div class="how-step-title">Activate</div>
+          <div class="how-step-desc">One click. Locale starts its DNS proxy and routes matching queries to your entries. System files stay untouched.</div>
         </div>
       </div>
       <div class="how-step" data-delay="300">
         <span class="how-step-n">04</span>
         <div class="how-step-content">
-          <div class="how-step-title">Menu bar, always there</div>
-          <div class="how-step-desc">The active context shows in the menu bar. Switch without opening the main window.</div>
+          <div class="how-step-title">Switch from the menu bar</div>
+          <div class="how-step-desc">The active context shows in your menu bar. Switch or deactivate without opening the main window.</div>
         </div>
       </div>
     </div>
 
     <div class="how-code reveal">
-      <div class="how-code-label">Work VPN context · DNS proxy answers</div>
+      <div class="how-code-label">Work VPN context &middot; DNS proxy answers</div>
       <div class="code-block">
         <div><span class="code-comment"># Locale: Work VPN (active)</span></div>
-        <div><span class="code-comment"># Matching questions answered locally</span></div>
+        <div><span class="code-comment"># Matching hostnames resolve locally</span></div>
         <div>&nbsp;</div>
         <div><span class="code-host">api.company.internal</span>  <span class="code-comment">A</span>  <span class="code-ip">127.0.0.1</span></div>
         <div><span class="code-host">db.internal</span>           <span class="code-comment">A</span>  <span class="code-ip">10.0.1.42</span></div>
@@ -898,7 +903,7 @@
         <div><span class="code-host">logs.company.internal</span> <span class="code-comment">A</span>  <span class="code-ip">10.0.1.75</span></div>
         <div><span class="code-host">router.local</span>          <span class="code-comment">A</span>  <span class="code-ip">192.168.1.1</span></div>
         <div>&nbsp;</div>
-        <div><span class="code-comment"># All other DNS is forwarded unchanged</span></div>
+        <div><span class="code-comment"># Everything else goes through normal DNS</span></div>
       </div>
     </div>
   </div>
@@ -906,135 +911,121 @@
 
 <!-- FEATURES -->
 <section class="section" id="features">
-  <p class="section-label reveal">Features</p>
-  <h2 class="section-title reveal">Everything in the right place</h2>
-  <p class="section-body reveal">
-    Built for the context-switching workflows developers actually have. Not a catch-all network manager.
-  </p>
+  <p class="section-label reveal">What it does</p>
+  <h2 class="section-title reveal">One thing, done well</h2>
+  <p class="section-body reveal">Locale manages DNS contexts. That's it. No VPN, no firewall, no catch-all network settings.</p>
 
   <div class="features-grid reveal">
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <rect x="3" y="3" width="18" height="18" rx="2"/>
-        <path d="M3 9h18M9 21V9"/>
-      </svg>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       <div class="feature-title">Named contexts</div>
-      <div class="feature-desc">Create as many as you need — Work VPN, Staging, Travel, local dev. Each fully independent.</div>
+      <div class="feature-desc">Save groups of host mappings with a name and color. Work VPN, staging, home lab &mdash; keep them separate.</div>
     </div>
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <path d="M4 6h16M4 12h16M4 18h8"/>
-      </svg>
-      <div class="feature-title">Hosts management</div>
-      <div class="feature-desc">Add, remove, disable individual entries inline. Sorted by IP, hostname, or status.</div>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16M4 12h16M4 18h8"/></svg>
+      <div class="feature-title">Host management</div>
+      <div class="feature-desc">Add, remove, or disable entries. Sort by IP, hostname, or status. Edit inline.</div>
     </div>
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 3a9 9 0 0 1 0 18M3 12h18"/>
-      </svg>
-      <div class="feature-title">Context settings</div>
-      <div class="feature-desc">Keep names, colors, active state, and host rows together for every environment.</div>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18M3 12h18"/></svg>
+      <div class="feature-title">Per-context settings</div>
+      <div class="feature-desc">Each context stores its own name, color, and full host list. Completely independent.</div>
     </div>
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <rect x="3" y="11" width="18" height="2" rx="1"/>
-        <path d="M12 3v4M12 17v4M5 6l2.5 2.5M16.5 14.5 19 17M5 18l2.5-2.5M16.5 9.5 19 7"/>
-      </svg>
-      <div class="feature-title">Menu bar access</div>
-      <div class="feature-desc">Active context always visible. One-click switch from anywhere, no window needed.</div>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="11" width="18" height="2" rx="1"/><path d="M12 3v4M12 17v4M5 6l2.5 2.5M16.5 14.5 19 17M5 18l2.5-2.5M16.5 9.5 19 7"/></svg>
+      <div class="feature-title">Menu bar</div>
+      <div class="feature-desc">See which context is active. Switch from anywhere without opening the main window.</div>
     </div>
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14,2 14,8 20,8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-      </svg>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       <div class="feature-title">JSON import / export</div>
-      <div class="feature-desc">Back up, share, or version-control your contexts. Human-readable JSON.</div>
+      <div class="feature-desc">Back up or share your contexts. Plain, human-readable JSON.</div>
     </div>
     <div class="feature-cell">
-      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
+      <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <div class="feature-title">System files untouched</div>
-      <div class="feature-desc">Locale applies contexts at DNS resolution time through a sandboxed Network Extension.</div>
+      <div class="feature-desc">Locale uses a sandboxed DNS proxy extension. Your /etc/hosts stays clean.</div>
     </div>
   </div>
 
   <div class="shot-grid reveal">
     <figure class="shot-card">
-      <img
-        src="assets/locale-new-context.png?v=1"
-        width="1800"
-        height="1144"
-        loading="lazy"
-        alt="Locale new context dialog with name field, color choices, and preview">
+      <img src="assets/locale-new-context.png?v=1" width="1800" height="1144" loading="lazy" alt="Locale new context dialog with name field, color picker, and live preview">
       <figcaption>Create a context with a name, color, and live preview.</figcaption>
     </figure>
     <figure class="shot-card">
-      <img
-        src="assets/locale-main-active.png?v=1"
-        width="1800"
-        height="1144"
-        loading="lazy"
-        alt="Locale main window showing the Home context active with hosts controls and status feedback">
-      <figcaption>Active context controls stay visible while Locale reports the latest change.</figcaption>
+      <img src="assets/locale-main-active.png?v=1" width="1800" height="1144" loading="lazy" alt="Locale main window showing an active DNS context with host entries and status">
+      <figcaption>Active context with host entries and status feedback.</figcaption>
     </figure>
   </div>
 
-  <!-- Safety model -->
-  <p class="section-label reveal" style="margin-bottom:16px">Safety model</p>
+  <!-- How DNS stays safe -->
+  <p class="section-label reveal" style="margin-bottom:16px">How DNS stays safe</p>
   <div class="dns-row reveal">
     <div class="dns-cell">
       <div class="dns-cell-name">DNS proxy</div>
-      <div class="dns-addr">Only matching hostnames resolve locally</div>
+      <div class="dns-addr">Only your mapped hostnames resolve locally</div>
     </div>
     <div class="dns-cell selected">
-      <div class="dns-cell-name">
-        App Group
-        <span class="dns-check">✓</span>
-      </div>
-      <div class="dns-addr">Main app and extension share active mappings</div>
+      <div class="dns-cell-name">App Group <span class="dns-check">&#10003;</span></div>
+      <div class="dns-addr">Main app and extension share mappings</div>
     </div>
     <div class="dns-cell">
       <div class="dns-cell-name">Forwarding</div>
-      <div class="dns-addr">Unmatched queries use normal DNS</div>
+      <div class="dns-addr">Unmapped queries use your normal DNS</div>
     </div>
     <div class="dns-cell">
       <div class="dns-cell-name">Revert</div>
-      <div class="dns-addr">Clear Locale mappings</div>
+      <div class="dns-addr">Switch to Home to clear all mappings</div>
     </div>
   </div>
 
-  <!-- Menu bar screenshot -->
+  <!-- Menu bar -->
   <div class="menubar-demo reveal">
     <div class="menubar-text">
       <p class="section-label" style="margin-bottom:16px">Menu bar</p>
       <h3 style="font-size:22px;font-weight:300;letter-spacing:-0.02em;margin-bottom:12px;color:var(--text)">Always one click away</h3>
-      <p style="font-size:14px;font-weight:300;color:var(--text2);line-height:1.7;max-width:340px">
-        The active context shows in the menu bar. Switch between contexts without opening the main window. Locale stays running as a background app.
-      </p>
+      <p style="font-size:14px;font-weight:300;color:var(--text2);line-height:1.7;max-width:340px">The active context shows in your menu bar. Switch between contexts or deactivate without opening the main window. Locale stays running quietly in the background.</p>
     </div>
     <figure class="menubar-shot">
-      <img
-        src="assets/locale-menu-popover.png?v=1"
-        width="612"
-        height="612"
-        loading="lazy"
-        alt="Locale menu bar popover listing contexts and quick actions">
+      <img src="assets/locale-menu-popover.png?v=1" width="612" height="612" loading="lazy" alt="Locale menu bar popover showing context list and quick actions">
     </figure>
+  </div>
+</section>
+
+<!-- LOCALE VS /ETC/HOSTS -->
+<section class="section" id="compare">
+  <p class="section-label reveal">Why not just edit /etc/hosts?</p>
+  <h2 class="section-title reveal">Locale vs. manual DNS editing</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:60px" class="reveal">
+    <div style="background:var(--bg);padding:20px 22px;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;">Editing /etc/hosts</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2;font-family:var(--mono)">
+        Needs sudo / root access<br>
+        One flat file for everything<br>
+        Manual commenting to &ldquo;disable&rdquo;<br>
+        Easy to break formatting<br>
+        No grouping or switching
+      </div>
+    </div>
+    <div style="background:var(--bg);padding:20px 22px;">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--green);margin-bottom:12px;letter-spacing:0.06em;text-transform:uppercase;">Using Locale</div>
+      <div style="font-size:13px;color:var(--text2);line-height:2;font-family:var(--mono)">
+        No sudo, no system file edits<br>
+        Named groups with colors<br>
+        Toggle entries on/off per row<br>
+        Sandboxed DNS proxy extension<br>
+        One-click context switching
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- INSTALL -->
 <section class="section" id="install">
-  <p class="section-label reveal">Install</p>
-  <h2 class="section-title reveal">Download Locale.</h2>
-  <p class="section-body reveal">
-    Locale is a notarized macOS app. Download it from GitHub Releases or build it from source.
-  </p>
+  <p class="section-label reveal">Get Locale</p>
+  <h2 class="section-title reveal">Download or build from source</h2>
+  <p class="section-body reveal">Locale is a notarized macOS app. Grab it from GitHub Releases or clone and build it yourself.</p>
 
   <div class="install-block reveal">
     <div class="install-tab-row">
@@ -1042,28 +1033,18 @@
       <button class="install-tab" onclick="switchTab(this, 'source')">Build from source</button>
     </div>
     <div class="install-content" id="tab-direct">
-      <div class="install-cmd">
-        <span style="font-size:13px;color:var(--text2)">Download the latest release from GitHub.</span>
-      </div>
+      <div class="install-cmd"><span style="font-size:13px;color:var(--text2)">Download the latest release from GitHub.</span></div>
       <div style="margin-top:16px">
         <a href="https://github.com/offyotto/Locale/releases/download/v1.0.0/Locale-notarized.zip" class="btn-primary" style="display:inline-flex">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M7 2v7M4 7l3 3 3-3M2 11h10"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 2v7M4 7l3 3 3-3M2 11h10"/></svg>
           Locale-notarized.zip
         </a>
-        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:14px">macOS 14+ · notarized ZIP</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:14px">macOS 14+ &middot; notarized ZIP</span>
       </div>
     </div>
     <div class="install-content" id="tab-source" style="display:none">
-      <div class="install-cmd">
-        <span class="install-prompt">$</span>
-        <span class="install-cmd-text">git clone https://github.com/offyotto/Locale.git</span>
-      </div>
-      <div class="install-cmd" style="margin-top:8px">
-        <span class="install-prompt">$</span>
-        <span class="install-cmd-text">cd Locale &amp;&amp; swift build -c release</span>
-      </div>
+      <div class="install-cmd"><span class="install-prompt">$</span> <span class="install-cmd-text">git clone https://github.com/offyotto/Locale.git</span></div>
+      <div class="install-cmd" style="margin-top:8px"><span class="install-prompt">$</span> <span class="install-cmd-text">cd Locale &amp;&amp; swift build -c release</span></div>
     </div>
   </div>
 
@@ -1077,12 +1058,46 @@
       </div>
     </div>
     <div style="background:var(--bg);padding:20px 22px;">
-      <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">Data</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:0.06em;text-transform:uppercase;">Privacy</div>
       <div style="font-size:13px;color:var(--text2);line-height:2;font-family:var(--mono)">
-        Contexts stay on this Mac<br>
-        Changes are previewed before apply<br>
-        Source available on GitHub
+        All data stays on your Mac<br>
+        No telemetry, no analytics<br>
+        No account required<br>
+        MIT licensed, source on GitHub
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <p class="section-label reveal">Questions</p>
+  <h2 class="section-title reveal">Frequently asked</h2>
+
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is Locale for macOS? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">Locale is a free, open-source macOS app that lets you create named groups of hostname-to-IP mappings (DNS contexts) and switch between them in one click, without editing /etc/hosts or using the terminal.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Does Locale modify /etc/hosts? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">No. Locale uses Apple's NEDNSProxyProvider network extension to handle DNS resolution. Your system host files stay untouched.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is Locale free? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">Yes. Locale is completely free and open source under the MIT license. No account required, no telemetry, no subscriptions.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What macOS version does Locale need? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">Locale requires macOS 14 Sonoma or later and runs on both Apple Silicon and Intel Macs.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does Locale handle DNS safely? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">Locale runs a sandboxed DNS proxy via Apple's Network Extension framework. Only hostnames you've mapped get resolved locally &mdash; everything else passes through to your normal DNS. Switch back to the Home context to clear all Locale mappings.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What is a DNS context? <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></button>
+      <div class="faq-a">A DNS context in Locale is a named group of hostname-to-IP mappings. For example, you might have a &ldquo;Work VPN&rdquo; context that maps internal hostnames to specific IPs, and a &ldquo;Home Lab&rdquo; context for your local network. You can switch between them instantly.</div>
     </div>
   </div>
 </section>
@@ -1105,9 +1120,6 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        if (entry.target.id === 'screenshot') {
-          entry.target.classList.add('visible');
-        }
       }
     });
   }, { threshold: 0.1 });
@@ -1130,6 +1142,11 @@
     btn.classList.add('active');
     document.getElementById('tab-direct').style.display = tab === 'direct' ? 'block' : 'none';
     document.getElementById('tab-source').style.display = tab === 'source' ? 'block' : 'none';
+  }
+
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('open');
   }
 </script>
 
