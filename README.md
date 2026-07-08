@@ -1,61 +1,96 @@
-# Locale
+<p align="center">
+  <img src="./website/assets/app-icon-dark.png" alt="locale icon" width="140">
+</p>
 
-Locale is a native macOS utility for switching named DNS contexts.
+<h1 align="center">locale</h1>
 
-It is built with SwiftUI. Day-to-day local builds can use Swift Package
-Manager, while App Store archives should use the checked-in Xcode project.
-Locale stores contexts locally, applies the active host mappings through a
-sandboxed DNS Proxy Network Extension, and leaves system host files untouched.
+<p align="center">save groups of hostname-to-ip mappings and switch between them in one click. no terminal, no editing system files, no sudo.</p>
 
-## Features
+<p align="center">
+  <a href="https://github.com/offyotto/Locale/releases/latest/download/Locale-notarized.zip"><b>download for mac</b></a>
+  ·
+  <a href="https://offyotto.github.io/Locale/">website</a>
+  ·
+  <a href="./LICENSE">license</a>
+</p>
 
-- Create named DNS contexts for local development, VPNs, labs, and temporary debugging.
-- Add, disable, and remove host mappings per context.
-- Apply a context through Locale's bundled `NEDNSProxyProvider` system extension.
-- Revert to a clean `Home` context to clear Locale-managed DNS mappings.
-- Switch active contexts from the menu bar.
-- Import and export contexts as JSON.
-- Use an adaptive macOS app icon compiled from `Assets/AppIcon.icon`.
+<p align="center">
+  <img src="https://img.shields.io/badge/macos-14%2B-black?style=flat&logo=apple" alt="macos 14+">
+  <img src="https://img.shields.io/badge/notarized-yes-2ea44f?style=flat" alt="notarized">
+  <img src="https://img.shields.io/badge/license-mit-blue?style=flat" alt="mit license">
+</p>
 
-## Website
+---
 
-The marketing site lives in `website/` and is deployed with GitHub Pages from
-`.github/workflows/pages.yml`.
+## what it is
 
-## Architecture
+locale is a native macos app for switching between named dns contexts. a context is a saved set of hostname-to-ip mappings, so you can point `api.myapp.test` at localhost for one project, at a staging box for another, and flip between them from the menu bar.
 
-Locale uses a sandboxed main app plus a bundled DNS Proxy Network Extension:
+it does this through a sandboxed dns proxy network extension. locale never edits `/etc/hosts`, never runs a privileged helper, and never calls `osascript`. when a context is active, matching dns questions get the ip you configured and everything else forwards to your normal system dns.
 
-- Main app writes the active context to the shared App Group defaults.
-- `LocaleDNSProxy` reads the same App Group data.
-- Matching DNS questions receive the configured IP address.
-- Unmatched DNS traffic is forwarded to the system DNS servers.
+<p align="center">
+  <img src="./website/assets/locale-main-active.png" alt="locale main window with an active context" width="820">
+</p>
 
-The app does not use `osascript`, a privileged helper, or direct `/etc/hosts`
-writes.
+## why it exists
 
-## Requirements
+the usual way to override a hostname on macos is to edit `/etc/hosts` by hand. that means sudo, a text editor, remembering to comment lines back out, and no clean way to keep separate setups for separate projects. locale keeps each setup as its own context and lets you switch with one click, and it leaves your real hosts file alone.
 
-- macOS 14 or newer
-- Xcode command line tools
-- Swift toolchain with SwiftPM
-- Apple Developer capabilities for App Groups, System Extensions, and DNS Proxy Network Extension when signing for distribution
+| | manual /etc/hosts | locale |
+| --- | --- | --- |
+| switch setups | comment and uncomment by hand | one click |
+| separate projects | all mixed in one file | one context each |
+| needs sudo | yes | no |
+| touches system files | yes | no |
+| revert | manual | switch to home context |
 
-## Build And Run
+## features
+
+- named contexts for local dev, vpns, labs, and temporary debugging
+- add, disable, and remove host mappings per context
+- apply a context through the bundled dns proxy network extension
+- switch active contexts from the menu bar
+- revert to a clean home context to clear everything locale manages
+- import and export contexts as json
+- adaptive app icon that matches light and dark mode
+
+<p align="center">
+  <img src="./website/assets/locale-menu-popover.png" alt="locale menu bar popover" width="360">
+  <img src="./website/assets/locale-new-context.png" alt="creating a new context in locale" width="360">
+</p>
+
+## install
+
+download the notarized build and drag it to applications:
+
+- [download for mac](https://github.com/offyotto/Locale/releases/latest/download/Locale-notarized.zip)
+
+on first launch, macos will ask you to allow the system extension in system settings. this is the dns proxy. locale cannot switch contexts without it.
+
+## build from source
 
 ```bash
 ./script/build_and_run.sh --verify
 ```
 
-The app bundle is written to:
+the app bundle is written to `dist/Locale.app`.
 
-```text
-dist/Locale.app
-```
+for a signed archive, open `Locale.xcodeproj`, select the `LocaleApp` scheme, and use product > archive. do not archive the swift package workspace directly, since package archives show up in organizer as generic xcode archives instead of macos app archives.
 
-## Xcode Archive
+## how it works
 
-Open `Locale.xcodeproj`, select the `LocaleApp` scheme, then use
-Product > Archive. Do not archive the Swift package workspace directly; package
-archives appear in Organizer as Generic Xcode Archives instead of macOS app
-archives.
+- the main app writes the active context to shared app group defaults
+- `LocaleDNSProxy` reads the same app group data
+- matching dns questions receive the configured ip address
+- unmatched dns traffic forwards to your system dns servers
+
+no `osascript`, no privileged helper, no direct `/etc/hosts` writes.
+
+## requirements
+
+- macos 14 or newer
+- to build and sign: xcode, the swift toolchain, and apple developer capabilities for app groups, system extensions, and the dns proxy network extension
+
+## license
+
+mit, see [LICENSE](./LICENSE).
