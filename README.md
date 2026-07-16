@@ -2,9 +2,9 @@
   <img src="./website/assets/app-icon-dark.png" alt="locale icon" width="140">
 </p>
 
-<h1 align="center">locale</h1>
+<h1 align="center">Locale</h1>
 
-<p align="center">save groups of hostname-to-ip mappings and switch between them in one click. no terminal, no editing system files, no sudo.</p>
+<p align="center">Save groups of hostname-to-ip mappings and switch between them in one click. no terminal, no editing system files, no sudo.</p>
 
 <p align="center">
   <a href="https://github.com/offyotto/Locale/releases/latest/download/Locale-notarized.zip"><b>download for mac</b></a>
